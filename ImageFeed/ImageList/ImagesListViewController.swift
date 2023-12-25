@@ -24,6 +24,7 @@ class ImagesListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
+        homeIndicatorBackground.backgroundColor = .white
     }
 
     private func configCell(for cell: ImageListCell, with indexPath: IndexPath) {
@@ -65,16 +66,17 @@ extension ImagesListViewController : UITableViewDelegate {
         guard let image = UIImage(named: photoNames[indexPath.row]) else {
             return 0
         }
-        let imageInsets = UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16)
+
+        let imageInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         let imageWidth = image.size.width
         let imageHeight = image.size.height
-        
+
         let requiredWidth = tableView.bounds.width - imageInsets.left - imageInsets.right
-        
+
         let widthRatio = requiredWidth / imageWidth
-        
+
         let requiredHeight = imageHeight * widthRatio + imageInsets.top + imageInsets.bottom
-        
+
         return requiredHeight
     }
 }

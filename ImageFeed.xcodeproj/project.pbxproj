@@ -39,13 +39,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BE5A40CC2B38978600AC88CD /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		BEC284BA2B29D05B0096D5CE /* ImageList */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,7 +67,6 @@
 		BEF2986E2B18FDC000CDB13D /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				BE5A40CC2B38978600AC88CD /* Helpers */,
 				BEC284BA2B29D05B0096D5CE /* ImageList */,
 				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
 				BEF298712B18FDC000CDB13D /* SceneDelegate.swift */,

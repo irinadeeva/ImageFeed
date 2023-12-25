@@ -26,7 +26,7 @@ class ImagesListViewController: UIViewController {
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
 
-    func configCell(for cell: ImageListCell, with indexPath: IndexPath) {
+    private func configCell(for cell: ImageListCell, with indexPath: IndexPath) {
         guard let imageCell = UIImage(named: photoNames[indexPath.row]) else {
             return
         }

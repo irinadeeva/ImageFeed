@@ -24,7 +24,6 @@ class ImagesListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        homeIndicatorBackground.backgroundColor = .white
     }
 
     private func configCell(for cell: ImageListCell, with indexPath: IndexPath) {

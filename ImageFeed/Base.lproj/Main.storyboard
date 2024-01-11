@@ -96,6 +96,7 @@
                     <navigationItem key="navigationItem" id="SNd-9N-iCV"/>
                     <connections>
                         <outlet property="tableView" destination="rca-bA-cjr" id="zsm-CY-GtT"/>
+                        <segue destination="WAX-Bl-C1P" kind="show" identifier="ShowSingleImage" id="2fV-HQ-tlh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -131,10 +132,10 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Photo" translatesAutoresizingMaskIntoConstraints="NO" id="p5A-73-0jz">
                                 <rect key="frame" x="16" y="91" width="70" height="70"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRd-q3-MTk">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRd-q3-MTk">
                                 <rect key="frame" x="392" y="114" width="22" height="22"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="Exit"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Exit"/>
                                 <connections>
                                     <action selector="didTapLogoutButton:" destination="9V4-3V-te3" eventType="touchUpInside" id="Aim-Le-MaR"/>
                                 </connections>
@@ -217,6 +218,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gT6-gU-TTd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="82.325581395348834" y="-3.218884120171674"/>
+        </scene>
+        <!--Single Image View Controller-->
+        <scene sceneID="baa-e2-wzi">
+            <objects>
+                <viewController id="WAX-Bl-C1P" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J6t-Zy-zvg">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="awU-QD-afu" userLabel="image">
+                                <rect key="frame" x="0.0" y="103" width="430" height="746"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="efi-jT-ir2"/>
+                        <color key="backgroundColor" name="YP Black"/>
+                        <constraints>
+                            <constraint firstItem="awU-QD-afu" firstAttribute="top" secondItem="efi-jT-ir2" secondAttribute="top" id="70e-46-onQ"/>
+                            <constraint firstItem="efi-jT-ir2" firstAttribute="bottom" secondItem="awU-QD-afu" secondAttribute="bottom" id="IJA-1w-fLk"/>
+                            <constraint firstAttribute="trailing" secondItem="awU-QD-afu" secondAttribute="trailing" id="MDk-AO-xpB"/>
+                            <constraint firstItem="awU-QD-afu" firstAttribute="leading" secondItem="J6t-Zy-zvg" secondAttribute="leading" id="igs-0q-ZDC"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ozl-b3-Tes"/>
+                    <connections>
+                        <outlet property="imageView" destination="awU-QD-afu" id="E9G-6k-Ue9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WOI-Bd-ifW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2049.7674418604652" y="-3.218884120171674"/>
         </scene>
     </scenes>
     <resources>

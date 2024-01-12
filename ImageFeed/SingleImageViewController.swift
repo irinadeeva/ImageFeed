@@ -11,6 +11,7 @@ import UIKit
 class SingleImageViewController: UIViewController {
     var image: UIImage!
     
+    @IBOutlet private var backButton: UIButton!
     @IBOutlet private var imageView: UIImageView!
     
     override func viewDidLoad() {
@@ -18,4 +19,12 @@ class SingleImageViewController: UIViewController {
         imageView.image = image
     }
     
+    @IBAction func didTApBackButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    //
+//    @IBAction func didTapBackButton() {
+//        dismiss(animated: true, completion: nil)
+//    }
+
 }

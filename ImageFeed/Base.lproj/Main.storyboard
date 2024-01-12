@@ -96,7 +96,7 @@
                     <navigationItem key="navigationItem" id="SNd-9N-iCV"/>
                     <connections>
                         <outlet property="tableView" destination="rca-bA-cjr" id="zsm-CY-GtT"/>
-                        <segue destination="WAX-Bl-C1P" kind="show" identifier="ShowSingleImage" id="2fV-HQ-tlh"/>
+                        <segue destination="WAX-Bl-C1P" kind="presentation" identifier="ShowSingleImage" id="2fV-HQ-tlh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -132,8 +132,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Photo" translatesAutoresizingMaskIntoConstraints="NO" id="p5A-73-0jz">
                                 <rect key="frame" x="16" y="91" width="70" height="70"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRd-q3-MTk">
-                                <rect key="frame" x="392" y="114" width="22" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRd-q3-MTk">
+                                <rect key="frame" x="370" y="114" width="44" height="44"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Exit"/>
                                 <connections>
@@ -222,26 +222,41 @@
         <!--Single Image View Controller-->
         <scene sceneID="baa-e2-wzi">
             <objects>
-                <viewController id="WAX-Bl-C1P" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="WAX-Bl-C1P" customClass="SingleImageViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J6t-Zy-zvg">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="0" translatesAutoresizingMaskIntoConstraints="NO" id="awU-QD-afu" userLabel="image">
-                                <rect key="frame" x="0.0" y="103" width="430" height="746"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0b-2J-1uc">
+                                <rect key="frame" x="11" y="17" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="Qt1-OT-7fM"/>
+                                    <constraint firstAttribute="width" constant="48" id="e9f-P5-mg2"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Backward"/>
+                                <connections>
+                                    <action selector="didTApBackButton" destination="WAX-Bl-C1P" eventType="touchUpInside" id="Vvg-jp-Pye"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="efi-jT-ir2"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="awU-QD-afu" firstAttribute="top" secondItem="efi-jT-ir2" secondAttribute="top" id="70e-46-onQ"/>
-                            <constraint firstItem="efi-jT-ir2" firstAttribute="bottom" secondItem="awU-QD-afu" secondAttribute="bottom" id="IJA-1w-fLk"/>
+                            <constraint firstItem="awU-QD-afu" firstAttribute="top" secondItem="J6t-Zy-zvg" secondAttribute="top" id="70e-46-onQ"/>
+                            <constraint firstAttribute="bottom" secondItem="awU-QD-afu" secondAttribute="bottom" id="IJA-1w-fLk"/>
                             <constraint firstAttribute="trailing" secondItem="awU-QD-afu" secondAttribute="trailing" id="MDk-AO-xpB"/>
                             <constraint firstItem="awU-QD-afu" firstAttribute="leading" secondItem="J6t-Zy-zvg" secondAttribute="leading" id="igs-0q-ZDC"/>
+                            <constraint firstItem="C0b-2J-1uc" firstAttribute="leading" secondItem="efi-jT-ir2" secondAttribute="leading" constant="9" id="kpu-SO-ts7"/>
+                            <constraint firstItem="C0b-2J-1uc" firstAttribute="top" secondItem="efi-jT-ir2" secondAttribute="top" constant="9" id="oz4-cw-gzQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Ozl-b3-Tes"/>
                     <connections>
+                        <outlet property="backButton" destination="C0b-2J-1uc" id="PTu-nd-pcr"/>
                         <outlet property="imageView" destination="awU-QD-afu" id="E9G-6k-Ue9"/>
                     </connections>
                 </viewController>
@@ -253,6 +268,7 @@
     <resources>
         <image name="0" width="200" height="132"/>
         <image name="Active" width="44" height="44"/>
+        <image name="Backward" width="24" height="24"/>
         <image name="Exit" width="44" height="44"/>
         <image name="Photo" width="70" height="70"/>
         <image name="tab_editorial_active" width="30" height="30"/>

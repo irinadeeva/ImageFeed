@@ -43,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BE3638342B590B3F00A202D1 /* SinlgeImageView */ = {
+			isa = PBXGroup;
+			children = (
+				BE1716FA2B401AAB00761FA6 /* SingleImageViewController.swift */,
+			);
+			path = SinlgeImageView;
+			sourceTree = "<group>";
+		};
 		BE5A40D02B3E848800AC88CD /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,14 +88,14 @@
 			isa = PBXGroup;
 			children = (
 				BEC284BA2B29D05B0096D5CE /* ImageList */,
-				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
 				BE5A40D02B3E848800AC88CD /* Profile */,
+				BE3638342B590B3F00A202D1 /* SinlgeImageView */,
+				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
 				BEF298712B18FDC000CDB13D /* SceneDelegate.swift */,
 				BEF298752B18FDC000CDB13D /* Main.storyboard */,
 				BEF298782B18FDC200CDB13D /* Assets.xcassets */,
 				BEF2987A2B18FDC200CDB13D /* LaunchScreen.storyboard */,
 				BEF2987D2B18FDC200CDB13D /* Info.plist */,
-				BE1716FA2B401AAB00761FA6 /* SingleImageViewController.swift */,
 			);
 			path = ImageFeed;
 			sourceTree = "<group>";

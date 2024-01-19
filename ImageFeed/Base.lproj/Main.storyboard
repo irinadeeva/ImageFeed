@@ -111,66 +111,10 @@
                     <view key="view" contentMode="scaleToFill" id="oDL-jF-wIP">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Екатерина Новикова" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vma-nc-OMh">
-                                <rect key="frame" x="16" y="169" width="398" height="28"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                <color key="textColor" name="YP White"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ekaterina_nov" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6f-57-Ora">
-                                <rect key="frame" x="16" y="205" width="398" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" name="YP White (Alpha 50)"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello, world!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qvz-ty-z7z">
-                                <rect key="frame" x="16" y="229" width="398" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" name="YP White"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Photo" translatesAutoresizingMaskIntoConstraints="NO" id="p5A-73-0jz">
-                                <rect key="frame" x="16" y="91" width="70" height="70"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRd-q3-MTk">
-                                <rect key="frame" x="370" y="114" width="44" height="44"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Exit"/>
-                                <connections>
-                                    <action selector="didTapLogoutButton:" destination="9V4-3V-te3" eventType="touchUpInside" id="Aim-Le-MaR"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="ES7-jj-Hri"/>
                         <color key="backgroundColor" name="YP Black"/>
-                        <constraints>
-                            <constraint firstItem="Qvz-ty-z7z" firstAttribute="trailing" secondItem="vma-nc-OMh" secondAttribute="trailing" id="1gs-MO-Lle"/>
-                            <constraint firstItem="o6f-57-Ora" firstAttribute="leading" secondItem="ES7-jj-Hri" secondAttribute="leading" constant="16" id="2Wm-dY-2uK"/>
-                            <constraint firstItem="ES7-jj-Hri" firstAttribute="trailing" secondItem="SRd-q3-MTk" secondAttribute="trailing" constant="16" id="A8Z-ld-jbG"/>
-                            <constraint firstItem="Qvz-ty-z7z" firstAttribute="leading" secondItem="vma-nc-OMh" secondAttribute="leading" id="Gog-4w-BfK"/>
-                            <constraint firstItem="vma-nc-OMh" firstAttribute="top" secondItem="p5A-73-0jz" secondAttribute="bottom" constant="8" id="IXj-9m-VAY"/>
-                            <constraint firstItem="Qvz-ty-z7z" firstAttribute="leading" secondItem="ES7-jj-Hri" secondAttribute="leading" constant="16" id="JQ9-r1-TBh"/>
-                            <constraint firstItem="Qvz-ty-z7z" firstAttribute="top" secondItem="o6f-57-Ora" secondAttribute="bottom" constant="8" id="JSI-6S-C03"/>
-                            <constraint firstItem="p5A-73-0jz" firstAttribute="top" secondItem="ES7-jj-Hri" secondAttribute="top" constant="32" id="Jdh-it-DNA"/>
-                            <constraint firstItem="ES7-jj-Hri" firstAttribute="trailing" secondItem="vma-nc-OMh" secondAttribute="trailing" constant="16" id="Mer-8Z-iTL"/>
-                            <constraint firstItem="o6f-57-Ora" firstAttribute="trailing" secondItem="vma-nc-OMh" secondAttribute="trailing" id="WIK-Oj-Yc0"/>
-                            <constraint firstItem="o6f-57-Ora" firstAttribute="leading" secondItem="vma-nc-OMh" secondAttribute="leading" id="Wgs-Se-6xu"/>
-                            <constraint firstItem="SRd-q3-MTk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="p5A-73-0jz" secondAttribute="trailing" id="eEf-q6-3uZ"/>
-                            <constraint firstItem="p5A-73-0jz" firstAttribute="leading" secondItem="ES7-jj-Hri" secondAttribute="leading" constant="16" id="l2p-Gb-an7"/>
-                            <constraint firstItem="o6f-57-Ora" firstAttribute="top" secondItem="vma-nc-OMh" secondAttribute="bottom" constant="8" id="nLl-8y-sKK"/>
-                            <constraint firstItem="SRd-q3-MTk" firstAttribute="top" secondItem="ES7-jj-Hri" secondAttribute="top" constant="55" id="sgp-U1-9OM"/>
-                            <constraint firstItem="vma-nc-OMh" firstAttribute="leading" secondItem="p5A-73-0jz" secondAttribute="leading" id="yG9-SB-8h4"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="tab_profile_active" id="5uv-6L-GJ8"/>
-                    <connections>
-                        <outlet property="logoutButton" destination="SRd-q3-MTk" id="sqT-vF-6TP"/>
-                        <outlet property="profileImage" destination="p5A-73-0jz" id="QAs-7q-4mE"/>
-                        <outlet property="userDescription" destination="Qvz-ty-z7z" id="LGV-Wl-j26"/>
-                        <outlet property="userName" destination="vma-nc-OMh" id="4tT-4B-n5X"/>
-                        <outlet property="userNickname" destination="o6f-57-Ora" id="pES-TP-vN8"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ewl-uo-UxF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -213,6 +157,9 @@
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing"/>
+                                <connections>
+                                    <action selector="didTapShareButton:" destination="WAX-Bl-C1P" eventType="touchUpInside" id="2NZ-6N-gtZ"/>
+                                </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8WC-l2-VII">
                                 <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
@@ -276,8 +223,6 @@
         <image name="0" width="200" height="132"/>
         <image name="Active" width="44" height="44"/>
         <image name="Backward" width="24" height="24"/>
-        <image name="Exit" width="44" height="44"/>
-        <image name="Photo" width="70" height="70"/>
         <image name="Sharing" width="51" height="51"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="30" height="30"/>
@@ -289,9 +234,6 @@
         </namedColor>
         <namedColor name="YP White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="YP White (Alpha 50)">
-            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

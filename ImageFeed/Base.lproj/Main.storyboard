@@ -181,7 +181,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzH-Px-nFI">
-                                <rect key="frame" x="189.66666666666666" y="831" width="51" height="51"/>
+                                <rect key="frame" x="189.66666666666666" y="865" width="51" height="51"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing"/>
                                 <connections>
@@ -193,7 +193,7 @@
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="8WC-l2-VII" secondAttribute="bottom" id="Aur-ir-LHE"/>
-                            <constraint firstItem="efi-jT-ir2" firstAttribute="bottom" secondItem="GzH-Px-nFI" secondAttribute="bottom" constant="50" id="Rgc-ox-fAu"/>
+                            <constraint firstItem="efi-jT-ir2" firstAttribute="bottom" secondItem="GzH-Px-nFI" secondAttribute="bottom" constant="16" id="Rgc-ox-fAu"/>
                             <constraint firstItem="8WC-l2-VII" firstAttribute="top" secondItem="J6t-Zy-zvg" secondAttribute="top" id="aSt-Nw-DbY"/>
                             <constraint firstItem="8WC-l2-VII" firstAttribute="leading" secondItem="efi-jT-ir2" secondAttribute="leading" id="cUM-oi-Uj9"/>
                             <constraint firstItem="C0b-2J-1uc" firstAttribute="leading" secondItem="efi-jT-ir2" secondAttribute="leading" constant="9" id="kpu-SO-ts7"/>

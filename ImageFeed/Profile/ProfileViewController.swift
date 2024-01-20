@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     private var profileImage: UIImageView!
     private var userName: UILabel!
     private var userNickname: UILabel!
@@ -91,6 +91,6 @@ class ProfileViewController: UIViewController {
     
     @objc
     private func tapLogoutButton() {
-        print("Button pressed")
+        print("Button Logout pressed")
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SingleImageViewController: UIViewController {
+final class SingleImageViewController: UIViewController {
     var image: UIImage! {
         didSet {
             guard isViewLoaded else { return }
@@ -19,10 +19,8 @@ class SingleImageViewController: UIViewController {
     
     @IBOutlet private var backButton: UIButton!
     @IBOutlet private var imageView: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet private var scrollView: UIScrollView!
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.minimumZoomScale = 0.1

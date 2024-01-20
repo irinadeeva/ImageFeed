@@ -149,18 +149,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzH-Px-nFI">
-                                <rect key="frame" x="189.66666666666666" y="831" width="51" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="51" id="aO8-T3-msv"/>
-                                    <constraint firstAttribute="height" constant="51" id="mw9-HN-KLD"/>
-                                </constraints>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Sharing"/>
-                                <connections>
-                                    <action selector="didTapShareButton:" destination="WAX-Bl-C1P" eventType="touchUpInside" id="2NZ-6N-gtZ"/>
-                                </connections>
-                            </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8WC-l2-VII">
                                 <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                                 <subviews>
@@ -192,6 +180,14 @@
                                     <action selector="didTapBackButton" destination="WAX-Bl-C1P" eventType="touchUpInside" id="Vvg-jp-Pye"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GzH-Px-nFI">
+                                <rect key="frame" x="189.66666666666666" y="831" width="51" height="51"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="Sharing"/>
+                                <connections>
+                                    <action selector="didTapShareButton:" destination="WAX-Bl-C1P" eventType="touchUpInside" id="yjw-PG-9SE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="efi-jT-ir2"/>
                         <color key="backgroundColor" name="YP Black"/>
@@ -211,7 +207,6 @@
                         <outlet property="backButton" destination="C0b-2J-1uc" id="PTu-nd-pcr"/>
                         <outlet property="imageView" destination="awU-QD-afu" id="E9G-6k-Ue9"/>
                         <outlet property="scrollView" destination="8WC-l2-VII" id="MG5-bj-NDP"/>
-                        <outlet property="shareButton" destination="GzH-Px-nFI" id="CKt-4D-EF5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WOI-Bd-ifW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -19,9 +19,10 @@ class SingleImageViewController: UIViewController {
     
     @IBOutlet private var backButton: UIButton!
     @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var shareButton: UIButton!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.minimumZoomScale = 0.1
@@ -29,30 +30,25 @@ class SingleImageViewController: UIViewController {
         imageView.image = image
         rescaleAndCenterImageInScrollView(image: image)
     }
-
+    
     @IBAction func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func didTapShareButton(_ sender: Any) {
-        let shareViewController = UIActivityViewController(activityItems: [""], applicationActivities: nil)
-        present(shareViewController, animated: true, completion: nil)
         
-        shareViewController.excludedActivityTypes = [
-            .postToTwitter,
-            .postToWeibo,
-            .message,
-            .mail,
-            .print,
-            .copyToPasteboard,
-            .assignToContact,
-            .saveToCameraRoll,
-            .addToReadingList,
-            .postToFlickr,
-            .postToVimeo,
-            .postToTencentWeibo
-        ]
+    @IBAction func didTapShareButton(_ sender: UIButton) {
+        guard let imageToShare = image else {
+            return
+        }
+        
+        let activityViewController = UIActivityViewController(
+            activityItems: [imageToShare],
+            applicationActivities: nil
+        )
+                
+        present(activityViewController, animated: true, completion: nil)
     }
+    
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale

@@ -11,5 +11,5 @@ final class ImageListCell: UITableViewCell {
     @IBOutlet weak var dataLabel: UILabel!
     @IBOutlet weak var favouriteButton: UIButton!
     @IBOutlet weak var imageCell: UIImageView!
-    static let reuseIndentifier = "ImageListCell"
+    static let reuseIdentifier = "ImageListCell"
 }

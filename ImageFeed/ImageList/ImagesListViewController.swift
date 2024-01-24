@@ -60,7 +60,7 @@ extension ImagesListViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.reuseIndentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.reuseIdentifier, for: indexPath)
         
         guard let imageListCell = cell as? ImageListCell else {
             return UITableViewCell()

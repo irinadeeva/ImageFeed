@@ -14,6 +14,8 @@
 		BED7EEE92B5E5F6E006AA355 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED7EEE82B5E5F6E006AA355 /* AuthViewController.swift */; };
 		BED7EEED2B5E8191006AA355 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED7EEEC2B5E8191006AA355 /* WebViewViewController.swift */; };
 		BED7EEEF2B604ECA006AA355 /* WebViewViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED7EEEE2B604ECA006AA355 /* WebViewViewControllerDelegate.swift */; };
+		BED7EEF22B638BCD006AA355 /* OAuthTokenResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED7EEF12B638BCD006AA355 /* OAuthTokenResponseBody.swift */; };
+		BED7EEF62B6390F0006AA355 /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED7EEF52B6390F0006AA355 /* OAuth2Service.swift */; };
 		BEF298702B18FDC000CDB13D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */; };
 		BEF298722B18FDC000CDB13D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF298712B18FDC000CDB13D /* SceneDelegate.swift */; };
 		BEF298742B18FDC000CDB13D /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF298732B18FDC000CDB13D /* ImagesListViewController.swift */; };
@@ -30,6 +32,8 @@
 		BED7EEE82B5E5F6E006AA355 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		BED7EEEC2B5E8191006AA355 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		BED7EEEE2B604ECA006AA355 /* WebViewViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerDelegate.swift; sourceTree = "<group>"; };
+		BED7EEF12B638BCD006AA355 /* OAuthTokenResponseBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthTokenResponseBody.swift; sourceTree = "<group>"; };
+		BED7EEF52B6390F0006AA355 /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
 		BEF2986C2B18FDC000CDB13D /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEF298712B18FDC000CDB13D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +90,22 @@
 			path = Authorization;
 			sourceTree = "<group>";
 		};
+		BED7EEF02B638BB2006AA355 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BED7EEF12B638BCD006AA355 /* OAuthTokenResponseBody.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BED7EEF32B6390D1006AA355 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				BED7EEF52B6390F0006AA355 /* OAuth2Service.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		BEF298632B18FDC000CDB13D = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +128,8 @@
 				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
 				BEF298712B18FDC000CDB13D /* SceneDelegate.swift */,
 				BED7EEE52B5D07EA006AA355 /* Constants.swift */,
+				BED7EEF32B6390D1006AA355 /* Service */,
+				BED7EEF02B638BB2006AA355 /* Models */,
 				BED7EEE72B5E5F3E006AA355 /* Authorization */,
 				BEC284BA2B29D05B0096D5CE /* ImageList */,
 				BE5A40D02B3E848800AC88CD /* Profile */,
@@ -197,8 +219,10 @@
 			files = (
 				BE5A40D22B3E849B00AC88CD /* ProfileViewController.swift in Sources */,
 				BED7EEEF2B604ECA006AA355 /* WebViewViewControllerDelegate.swift in Sources */,
+				BED7EEF62B6390F0006AA355 /* OAuth2Service.swift in Sources */,
 				BEF298742B18FDC000CDB13D /* ImagesListViewController.swift in Sources */,
 				BEC284B92B29D0340096D5CE /* ImageListCell.swift in Sources */,
+				BED7EEF22B638BCD006AA355 /* OAuthTokenResponseBody.swift in Sources */,
 				BEF298702B18FDC000CDB13D /* AppDelegate.swift in Sources */,
 				BED7EEE92B5E5F6E006AA355 /* AuthViewController.swift in Sources */,
 				BED7EEE62B5D07EA006AA355 /* Constants.swift in Sources */,

@@ -225,6 +225,10 @@
                                     <action selector="didTapBackButton:" destination="W7T-15-gre" eventType="touchUpInside" id="LnG-W6-C3x"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MSg-I0-esQ">
+                                <rect key="frame" x="0.0" y="38" width="430" height="4"/>
+                                <color key="progressTintColor" name="YP Background"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QKK-cc-HPF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -232,19 +236,22 @@
                             <constraint firstAttribute="trailing" secondItem="PeE-90-3rn" secondAttribute="trailing" id="0oY-GB-xQG"/>
                             <constraint firstAttribute="bottom" secondItem="PeE-90-3rn" secondAttribute="bottom" id="5fx-Wk-epa"/>
                             <constraint firstItem="PeE-90-3rn" firstAttribute="top" secondItem="O4C-M8-Mg8" secondAttribute="top" id="67d-ag-lJ1"/>
+                            <constraint firstItem="MSg-I0-esQ" firstAttribute="trailing" secondItem="O4C-M8-Mg8" secondAttribute="trailing" id="8ql-Yd-OC0"/>
                             <constraint firstItem="PeE-90-3rn" firstAttribute="leading" secondItem="O4C-M8-Mg8" secondAttribute="leading" id="EcX-2z-TT9"/>
                             <constraint firstItem="9MV-fq-YKx" firstAttribute="top" secondItem="QKK-cc-HPF" secondAttribute="top" constant="9" id="IGB-M8-tum"/>
+                            <constraint firstItem="MSg-I0-esQ" firstAttribute="leading" secondItem="O4C-M8-Mg8" secondAttribute="leading" id="cyU-gq-CCy"/>
                             <constraint firstItem="9MV-fq-YKx" firstAttribute="leading" secondItem="QKK-cc-HPF" secondAttribute="leading" constant="9" id="rBh-hJ-uz2"/>
+                            <constraint firstItem="MSg-I0-esQ" firstAttribute="bottom" secondItem="9MV-fq-YKx" secondAttribute="bottom" constant="9" id="xAF-l0-VrW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="6aE-hG-Dpb"/>
                     <connections>
+                        <outlet property="progressView" destination="MSg-I0-esQ" id="AZZ-bf-IzK"/>
                         <outlet property="webView" destination="PeE-90-3rn" id="3g7-MN-RBR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="42s-md-kFv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2297" y="456"/>
+            <point key="canvasLocation" x="-2298.1395348837209" y="455.79399141630904"/>
         </scene>
         <!--Single Image View Controller-->
         <scene sceneID="baa-e2-wzi">

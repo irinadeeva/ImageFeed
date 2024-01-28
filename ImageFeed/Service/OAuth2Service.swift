@@ -43,8 +43,4 @@ final class OAuth2Service {
         
         task.resume()
     }
-    
-    private func buildRequest() {
-        // TODO: create a request here 
-    }
 }

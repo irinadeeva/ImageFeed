@@ -357,7 +357,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="C1M-MV-4UX"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="JLX-e0-PCh" firstAttribute="centerX" secondItem="vx3-Nt-Yfo" secondAttribute="centerX" id="Bl4-PI-Kq8"/>
                             <constraint firstItem="JLX-e0-PCh" firstAttribute="centerY" secondItem="vx3-Nt-Yfo" secondAttribute="centerY" id="vkw-Um-hhd"/>

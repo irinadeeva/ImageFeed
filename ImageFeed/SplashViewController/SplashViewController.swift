@@ -21,7 +21,7 @@ final class SplashViewController: UIViewController {
             performSegue(withIdentifier: showAuthenticationScreenIdentifier, sender: nil)
         }
     }
-    
+        
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
         

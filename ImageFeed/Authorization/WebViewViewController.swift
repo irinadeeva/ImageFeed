@@ -56,7 +56,7 @@ final class WebViewViewController: UIViewController {
             } else {
                 super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
             }
-    }
+        }
     
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
@@ -86,7 +86,7 @@ extension WebViewViewController: WKNavigationDelegate {
             let items = urlComponents.queryItems,
             let codeItem = items.first(where: { $0.name == "code" })
         {
-            return codeItem.value                                           
+            return codeItem.value
         } else {
             return nil
         }

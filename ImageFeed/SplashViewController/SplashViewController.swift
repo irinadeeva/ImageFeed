@@ -65,7 +65,6 @@ extension SplashViewController: AuthViewControllerDelegate {
                 case .success(let data):
                     do {
                         let body = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                        print("this is a body \(body)")
                         tokenStorage.token = body.accessToken
                     } catch {
                         print(Error.self)

@@ -12,7 +12,28 @@ final class OAuth2Service {
         case codeError
     }
     
-    func fetchAuthToken(code: String, completionHandler: @escaping(Result<Data, Error>) -> Void) {
+    func fetchAuthToken(code: String, completionHandler: @escaping(Result<Data, Error>) -> Void) {        
+        let request = buildRequest(with: code)
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error {
+                completionHandler(.failure(error))
+            }
+            
+            if let response = response as? HTTPURLResponse,
+               response.statusCode < 200 || response.statusCode >= 300 {
+                completionHandler(.failure(NetworkError.codeError))
+            }
+            
+            guard let data else {return}
+            
+            completionHandler(.success(data))
+        }
+        
+        task.resume()
+    }
+    
+    private func buildRequest(with code: String) -> URLRequest {
         var urlComponents = URLComponents(string: UnsplashTokenURLString)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: AccessKey),
@@ -26,21 +47,6 @@ final class OAuth2Service {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error {
-                completionHandler(.failure(error))
-            }
-
-            if let response = response as? HTTPURLResponse,
-               response.statusCode < 200 || response.statusCode >= 300 {
-                completionHandler(.failure(NetworkError.codeError))
-            }
-
-            guard let data else {return}
-            
-            completionHandler(.success(data))
-        }
-        
-        task.resume()
+        return request
     }
 }

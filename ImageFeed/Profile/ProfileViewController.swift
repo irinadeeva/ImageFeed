@@ -90,6 +90,5 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func tapLogoutButton() {
-        print("Button Logout pressed")
     }
 }

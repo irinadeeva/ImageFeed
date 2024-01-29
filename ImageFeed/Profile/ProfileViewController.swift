@@ -5,7 +5,6 @@
 ////  Created by Irina Deeva on 29/12/23.
 ////
 
-import Foundation
 import UIKit
 
 final class ProfileViewController: UIViewController {
@@ -91,6 +90,5 @@ final class ProfileViewController: UIViewController {
     
     @objc
     private func tapLogoutButton() {
-        print("Button Logout pressed")
     }
 }

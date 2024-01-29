@@ -29,17 +29,16 @@ final class ImagesListViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
-            let viewController = segue.destination as! SingleImageViewController
-            let indexPath = sender as! IndexPath
-            let image = UIImage(named: photoNames[indexPath.row])
-            viewController.image = image
+            if let viewController = segue.destination as? SingleImageViewController {
+                let indexPath = sender as! IndexPath
+                let image = UIImage(named: photoNames[indexPath.row])
+                viewController.image = image
+            }
         } else {
             super.prepare(for: segue, sender: sender)
         }
     }
     
-    
-  
     private func configCell(for cell: ImageListCell, with indexPath: IndexPath) {
         guard let imageCell = UIImage(named: photoNames[indexPath.row]) else {
             return
@@ -60,7 +59,7 @@ extension ImagesListViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.reuseIndentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImageListCell.reuseIdentifier, for: indexPath)
         
         guard let imageListCell = cell as? ImageListCell else {
             return UITableViewCell()

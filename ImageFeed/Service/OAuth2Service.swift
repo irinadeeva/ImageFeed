@@ -8,15 +8,23 @@
 import Foundation
 
 final class OAuth2Service {
+    private let urlSession = URLSession.shared
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
     private enum NetworkError: Error {
         case codeError
         case noData
     }
-
+    
     func fetchAuthToken(code: String, completionHandler: @escaping(Result<String, Error>) -> Void) {
+        assert(Thread.isMainThread)
+        if lastCode == code { return }
+        task?.cancel()
+        lastCode = code
+        
         let request = buildRequest(with: code)
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = urlSession.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
                 if let error {
                     completionHandler(.failure(error))
@@ -37,15 +45,22 @@ final class OAuth2Service {
                     
                     let resultString = decodedData.accessToken
                     completionHandler(.success(resultString))
+                    
                 } catch {
                     completionHandler(.failure(error))
                 }
+                
+                self.task = nil
+                if error != nil {
+                    self.lastCode = nil
+                }
             }
         }
-
+        
+        self.task = task
         task.resume()
     }
-
+    
     private func buildRequest(with code: String) -> URLRequest {
         var urlComponents = URLComponents(string: unsplashTokenURLString)!
         urlComponents.queryItems = [
@@ -55,11 +70,11 @@ final class OAuth2Service {
             URLQueryItem(name: "code", value: code),
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
-
+        
         let url = urlComponents.url!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-
+        
         return request
     }
 }

@@ -10,9 +10,10 @@ import Foundation
 final class OAuth2Service {
     private enum NetworkError: Error {
         case codeError
+        case noData
     }
     
-    func fetchAuthToken(code: String, completionHandler: @escaping(Result<Data, Error>) -> Void) {        
+    func fetchAuthToken(code: String, completionHandler: @escaping(Result<String, Error>) -> Void) {
         let request = buildRequest(with: code)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -25,9 +26,19 @@ final class OAuth2Service {
                 completionHandler(.failure(NetworkError.codeError))
             }
             
-            guard let data else {return}
+            guard let data = data else {
+                completionHandler(.failure(NetworkError.noData))
+                return
+            }
             
-            completionHandler(.success(data))
+            do {
+                let decodedData = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
+                
+                let resultString = decodedData.accessToken
+                completionHandler(.success(resultString))
+            } catch {
+                completionHandler(.failure(error))
+            }
         }
         
         task.resume()

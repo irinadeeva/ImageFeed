@@ -8,6 +8,7 @@
 import Foundation
 
 class OAuth2TokenStorage {
+    static let shared = OAuth2TokenStorage()
     private let userDefaults = UserDefaults.standard
     var token: String? {
         get {
@@ -17,4 +18,6 @@ class OAuth2TokenStorage {
             userDefaults.set(newValue, forKey: "OAuth2Token")
         }
     }
+    
+    private init() { }
 }

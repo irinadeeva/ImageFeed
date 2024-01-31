@@ -33,16 +33,15 @@ final class WebViewViewController: UIViewController {
 
         webView.navigationDelegate = self
 
-        var urlComponents = URLComponents(string: unsplashAuthorizeURLString)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: accessKey),
-            URLQueryItem(name: "redirect_uri", value: redirectUR),
-            URLQueryItem(name: "response_type", value: "code"),
-            URLQueryItem(name: "scope", value: accessScope)
-        ]
-        let url = urlComponents.url!
+        guard let request = URLRequest.buildRequest(
+            path: unsplashAuthorizeURLString,
+            queryItems: [
+                URLQueryItem(name: "client_id", value: accessKey),
+                URLQueryItem(name: "redirect_uri", value: redirectUR),
+                URLQueryItem(name: "response_type", value: "code"),
+                URLQueryItem(name: "scope", value: accessScope)
+        ]) else {return}
 
-        let request = URLRequest(url: url)
         webView.load(request)
     }
 

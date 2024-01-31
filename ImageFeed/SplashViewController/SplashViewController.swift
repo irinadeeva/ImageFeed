@@ -10,8 +10,8 @@ import ProgressHUD
 
 final class SplashViewController: UIViewController {
     private let showAuthenticationScreenIdentifier = "ShowAuthenticationScreen"
-    private let oAuth2Service = OAuth2Service()
-    private var tokenStorage = OAuth2TokenStorage()
+    private let oAuth2Service = OAuth2Service.shared
+    private var tokenStorage = OAuth2TokenStorage.shared
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

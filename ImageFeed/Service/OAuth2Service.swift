@@ -8,22 +8,30 @@
 import Foundation
 
 final class OAuth2Service {
+    static let shared = OAuth2Service()
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var lastCode: String?
-    
-    private enum NetworkError: Error {
-        case codeError
-        case noData
-    }
-    
+
+    private init() { }
+
     func fetchAuthToken(code: String, completionHandler: @escaping(Result<String, Error>) -> Void) {
         assert(Thread.isMainThread)
         if lastCode == code { return }
         task?.cancel()
         lastCode = code
-        
-        let request = buildRequest(with: code)
+
+        guard let request = URLRequest.buildRequest(
+            method: "POST",
+            path: unsplashTokenURLString,
+            queryItems: [
+                URLQueryItem(name: "client_id", value: accessKey),
+                URLQueryItem(name: "client_secret", value: secretKey),
+                URLQueryItem(name: "redirect_uri", value: redirectUR),
+                URLQueryItem(name: "code", value: code),
+                URLQueryItem(name: "grant_type", value: "authorization_code")
+            ]) else {return}
+
         let task = urlSession.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
                 if let error {
@@ -59,22 +67,5 @@ final class OAuth2Service {
         
         self.task = task
         task.resume()
-    }
-    
-    private func buildRequest(with code: String) -> URLRequest {
-        var urlComponents = URLComponents(string: unsplashTokenURLString)!
-        urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: accessKey),
-            URLQueryItem(name: "client_secret", value: secretKey),
-            URLQueryItem(name: "redirect_uri", value: redirectUR),
-            URLQueryItem(name: "code", value: code),
-            URLQueryItem(name: "grant_type", value: "authorization_code")
-        ]
-        
-        let url = urlComponents.url!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        
-        return request
     }
 }

@@ -65,8 +65,7 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
 
     private func fetchOAuthToken(_ code: String) {
-        oAuth2Service.fetchAuthToken(code: code) { result in
-            DispatchQueue.main.async { [weak self] in
+        oAuth2Service.fetchAuthToken(code: code) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let data):
@@ -77,7 +76,6 @@ extension SplashViewController: AuthViewControllerDelegate {
                     ProgressHUD.dismiss()
                     // TODO: Показать ошибку
                 }
-            }
         }
     }
 }

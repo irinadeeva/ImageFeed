@@ -12,26 +12,26 @@ final class SplashViewController: UIViewController {
     private let showAuthenticationScreenIdentifier = "ShowAuthenticationScreen"
     private let oAuth2Service = OAuth2Service()
     private var tokenStorage = OAuth2TokenStorage()
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+
         if (tokenStorage.token != nil) {
             switchToTabBarController()
         } else {
             performSegue(withIdentifier: showAuthenticationScreenIdentifier, sender: nil)
         }
     }
-        
+
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else {
             assertionFailure("Invalid Configuration")
             return
         }
-        
+
         let tabBarController = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "TabBarViewController")
-           
+
         window.rootViewController = tabBarController
     }
 }
@@ -46,7 +46,7 @@ extension SplashViewController {
                 assertionFailure("Failed to prepare for \(showAuthenticationScreenIdentifier)")
                 return
             }
-            
+
             viewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
@@ -63,7 +63,7 @@ extension SplashViewController: AuthViewControllerDelegate {
         }
 
     }
-    
+
     private func fetchOAuthToken(_ code: String) {
         oAuth2Service.fetchAuthToken(code: code) { result in
             DispatchQueue.main.async { [weak self] in
@@ -80,5 +80,4 @@ extension SplashViewController: AuthViewControllerDelegate {
             }
         }
     }
-    
 }

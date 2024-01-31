@@ -22,7 +22,6 @@ final class ProfileViewController: UIViewController {
         setupUserNicknameLabel()
         setupUserDescriptionLabel()
         setupLogoutButton()
-        
         setupConstraints()
     }
 
@@ -32,7 +31,7 @@ final class ProfileViewController: UIViewController {
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileImage)
     }
-    
+
     private func setupUserNameLabel() {
         userName = UILabel()
         userName.text = "Екатерина Новикова"
@@ -41,7 +40,7 @@ final class ProfileViewController: UIViewController {
         userName.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(userName)
     }
-    
+
     private func setupUserNicknameLabel() {
         userNickname = UILabel()
         userNickname.text = "@ekaterina_nov"
@@ -50,7 +49,7 @@ final class ProfileViewController: UIViewController {
         userNickname.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(userNickname)
     }
-    
+
     private func setupUserDescriptionLabel() {
         userDescription = UILabel()
         userDescription.text = "Hello, world!"
@@ -70,7 +69,7 @@ final class ProfileViewController: UIViewController {
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoutButton)
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             profileImage.heightAnchor.constraint(equalToConstant: 70),
@@ -87,7 +86,7 @@ final class ProfileViewController: UIViewController {
             userDescription.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor)
         ])
     }
-    
+
     @objc
     private func tapLogoutButton() {
     }

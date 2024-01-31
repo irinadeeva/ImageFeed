@@ -10,4 +10,5 @@ import Foundation
 public enum NetworkError: Error {
     case codeError
     case noData
+    case invalidResponse
 }

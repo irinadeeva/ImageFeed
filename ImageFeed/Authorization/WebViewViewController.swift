@@ -33,14 +33,7 @@ final class WebViewViewController: UIViewController {
 
         webView.navigationDelegate = self
 
-        guard let request = URLRequest.buildRequest(
-            path: unsplashAuthorizeURLString,
-            queryItems: [
-                URLQueryItem(name: "client_id", value: accessKey),
-                URLQueryItem(name: "redirect_uri", value: redirectUR),
-                URLQueryItem(name: "response_type", value: "code"),
-                URLQueryItem(name: "scope", value: accessScope)
-        ]) else {return}
+        guard let request = authorisationRequest() else {return}
 
         webView.load(request)
     }
@@ -89,5 +82,18 @@ extension WebViewViewController: WKNavigationDelegate {
         } else {
             return nil
         }
+    }
+}
+
+extension WebViewViewController {
+    func authorisationRequest() -> URLRequest? {
+        return URLRequest.buildRequest(
+            path: unsplashAuthorizeURLString,
+            queryItems: [
+                URLQueryItem(name: "client_id", value: accessKey),
+                URLQueryItem(name: "redirect_uri", value: redirectUR),
+                URLQueryItem(name: "response_type", value: "code"),
+                URLQueryItem(name: "scope", value: accessScope)
+        ])
     }
 }

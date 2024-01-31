@@ -21,16 +21,7 @@ final class OAuth2Service {
         task?.cancel()
         lastCode = code
 
-        guard let request = URLRequest.buildRequest(
-            method: "POST",
-            path: unsplashTokenURLString,
-            queryItems: [
-                URLQueryItem(name: "client_id", value: accessKey),
-                URLQueryItem(name: "client_secret", value: secretKey),
-                URLQueryItem(name: "redirect_uri", value: redirectUR),
-                URLQueryItem(name: "code", value: code),
-                URLQueryItem(name: "grant_type", value: "authorization_code")
-            ]) else {return}
+        guard let request = authTokenRequest(with: code) else {return}
 
         let task = urlSession.dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
@@ -67,5 +58,20 @@ final class OAuth2Service {
         
         self.task = task
         task.resume()
+    }
+}
+
+extension OAuth2Service {
+    func authTokenRequest(with code: String) -> URLRequest? {
+        return URLRequest.buildRequest(
+            method: "POST",
+            path: unsplashTokenURLString,
+            queryItems: [
+                URLQueryItem(name: "client_id", value: accessKey),
+                URLQueryItem(name: "client_secret", value: secretKey),
+                URLQueryItem(name: "redirect_uri", value: redirectUR),
+                URLQueryItem(name: "code", value: code),
+                URLQueryItem(name: "grant_type", value: "authorization_code")
+            ])
     }
 }

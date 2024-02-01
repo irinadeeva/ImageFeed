@@ -11,6 +11,7 @@ final class ProfileService {
     static let shared = ProfileService()
     private(set) var profile: Profile?
     private let urlSession = URLSession.shared
+    
     private init() {}
 
     func fetchProfile(_ token: String, completionHandler: @escaping (Result<Profile, Error>) -> Void) {
@@ -18,7 +19,7 @@ final class ProfileService {
         guard let request = profileRequest() else { return }
 
         let task = urlSession.objectTask(with: request) 
-        { (result: Result<ProfileResult, Error>) in
+        { (result: Result<ProfileRespondResult, Error>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):

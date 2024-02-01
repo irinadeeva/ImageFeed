@@ -7,16 +7,30 @@
 
 import Foundation
 
-struct Profile {
+struct ProfileRespondResult: Decodable {
     let userName: String
-    let fullName: String
-    let loginName: String
+    let firstName: String
+    let lastName: String
     let bio: String?
 
-    init(profileResult: ProfileResult) {
-        self.userName = profileResult.userName
-        self.fullName = profileResult.firstName + " " + profileResult.lastName
-        self.loginName = "@" + profileResult.userName
+    private enum CodingKeys: String, CodingKey {
+        case userName = "username"
+        case firstName = "first_name"
+        case lastName = "last_name"
+        case bio = "bio"
+    }
+}
+
+struct Profile {
+    let username: String
+    let fullname: String
+    let loginname: String
+    let bio: String?
+
+    init(profileResult: ProfileRespondResult) {
+        self.username = profileResult.userName
+        self.fullname = profileResult.firstName + " " + profileResult.lastName
+        self.loginname = "@" + profileResult.userName
         self.bio = profileResult.bio
     }
 }

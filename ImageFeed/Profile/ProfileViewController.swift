@@ -31,8 +31,8 @@ final class ProfileViewController: UIViewController {
     }
 
     private func updateProfileDetails(profile: Profile) {
-        userName.text = profile.fullName
-        userNickname.text = profile.loginName
+        userName.text = profile.fullname
+        userNickname.text = profile.loginname
         if let bio = profile.bio {
             userDescription.text = bio
         }

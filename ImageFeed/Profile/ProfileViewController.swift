@@ -13,6 +13,7 @@ final class ProfileViewController: UIViewController {
     private var userNickname: UILabel!
     private var userDescription: UILabel!
     private var logoutButton: UIButton!
+    private let profileService = ProfileService.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,18 @@ final class ProfileViewController: UIViewController {
         setupUserDescriptionLabel()
         setupLogoutButton()
         setupConstraints()
+
+        if let profile = profileService.profile {
+            updateProfileDetails(profile: profile)
+        }
+    }
+
+    private func updateProfileDetails(profile: Profile) {
+        userName.text = profile.fullName
+        userNickname.text = profile.loginName
+        if let bio = profile.bio {
+            userDescription.text = bio
+        }
     }
 
     private func setupProfileImage() {
@@ -34,7 +47,6 @@ final class ProfileViewController: UIViewController {
 
     private func setupUserNameLabel() {
         userName = UILabel()
-        userName.text = "Екатерина Новикова"
         userName.textColor = .ypWhite
         userName.font = .systemFont(ofSize: 23, weight: .semibold)
         userName.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +55,6 @@ final class ProfileViewController: UIViewController {
 
     private func setupUserNicknameLabel() {
         userNickname = UILabel()
-        userNickname.text = "@ekaterina_nov"
         userNickname.textColor = .ypGrey
         userNickname.font = .systemFont(ofSize: 13)
         userNickname.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +63,6 @@ final class ProfileViewController: UIViewController {
 
     private func setupUserDescriptionLabel() {
         userDescription = UILabel()
-        userDescription.text = "Hello, world!"
         userDescription.textColor = .ypWhite
         userDescription.font = .systemFont(ofSize: 13)
         userDescription.translatesAutoresizingMaskIntoConstraints = false

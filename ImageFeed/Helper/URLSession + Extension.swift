@@ -8,7 +8,8 @@
 import Foundation
 
 extension URLSession {
-    func objectTask<T: Decodable>( for request: URLRequest, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
+    func objectTask<T: Decodable>(with request: URLRequest,
+                                  completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
         let task = dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {
                 if let error = error {
@@ -25,7 +26,6 @@ extension URLSession {
                     completion(.failure(NetworkError.noData))
                     return
                 }
-
 
                 do {
                     let decodedData = try JSONDecoder().decode(T.self, from: data)

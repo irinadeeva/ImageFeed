@@ -9,7 +9,14 @@ import Foundation
 
 struct Profile {
     let userName: String
-    let fullName: String //конкатенация имени и фамилии пользователя (если first_name = "Ivan", last_name = "Ivanov", то name = "Ivan Ivanov")
-    let loginName: String //username со знаком @ перед первым символом (если username = "ivanivanov", то loginName = "@ivanivanov")
-    let bio: String
+    let fullName: String
+    let loginName: String
+    let bio: String?
+
+    init(profileResult: ProfileResult) {
+        self.userName = profileResult.userName
+        self.fullName = profileResult.firstName + " " + profileResult.lastName
+        self.loginName = "@" + profileResult.userName
+        self.bio = profileResult.bio
+    }
 }

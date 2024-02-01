@@ -30,7 +30,7 @@ extension URLRequest {
 
         ///Customised for the Unsplash
         if let token = OAuth2TokenStorage.shared.token {
-            request.setValue(token, forHTTPHeaderField: "Authorization")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
         //        if let body {

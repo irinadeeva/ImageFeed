@@ -18,11 +18,7 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
 
         if let token = tokenStorage.token {
-
-                fetchProfile(token)
-            print("splash viewDidAppear")
-                print(profileService.profile)
-
+            fetchProfile(token)
         } else {
             performSegue(withIdentifier: showAuthenticationScreenIdentifier, sender: nil)
         }
@@ -72,15 +68,15 @@ extension SplashViewController: AuthViewControllerDelegate {
 
     private func fetchOAuthToken(_ code: String) {
         oAuth2Service.fetchAuthToken(code: code) { [weak self] result in
-                guard let self else { return }
-                switch result {
-                case .success(let token):
-                    self.tokenStorage.token = token
-                    self.fetchProfile(token)
-                case .failure(_):
-                    UIBlockingProgressHUD.dismiss()
-                    // TODO: [Sprint 11] Показать ошибку
-                }
+            guard let self else { return }
+            switch result {
+            case .success(let token):
+                self.tokenStorage.token = token
+                self.fetchProfile(token)
+            case .failure(_):
+                UIBlockingProgressHUD.dismiss()
+                // TODO: [Sprint 11] Показать ошибку
+            }
         }
     }
 
@@ -90,14 +86,10 @@ extension SplashViewController: AuthViewControllerDelegate {
             switch result {
             case .success(let profile):
                 profileService.updateProfile(profile)
-                print("splash fetch profile")
-                print(profileService.profile)
-
                 DispatchQueue.main.async {
                     self.switchToTabBarController()
                     UIBlockingProgressHUD.dismiss()
                 }
-
             case .failure(_):
                 DispatchQueue.main.async {
                     UIBlockingProgressHUD.dismiss()

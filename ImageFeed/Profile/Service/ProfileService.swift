@@ -23,8 +23,6 @@ final class ProfileService {
                 switch result {
                 case .success(let data):
                     let profile = Profile(profileResult: data)
-                    print("ProfileService fetchProfile")
-                    print(profile)
                     completionHandler(.success(profile))
                 case .failure(let error):
                     completionHandler(.failure(error))
@@ -36,8 +34,6 @@ final class ProfileService {
     }
 
     func updateProfile(_ profile: Profile) {
-        print("Profile service updateProfile")
-        print(profile)
         self.profile = profile
     }
 }

@@ -114,6 +114,12 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let imageURL):
                 profileImageService.updateImageProfile(with: imageURL)
 
+                NotificationCenter.default
+                    .post(
+                        name: ProfileImageService.DidChangeNotification,
+                        object: self,
+                        userInfo: ["URL": imageURL])
+
                 DispatchQueue.main.async {
                     self.switchToTabBarController()
                     UIBlockingProgressHUD.dismiss()

@@ -18,7 +18,7 @@ final class ProfileService {
         assert(Thread.isMainThread)
         guard let request = profileRequest() else { return }
 
-        let task = urlSession.objectTask(with: request) 
+        let task = urlSession.objectTask(for: request) 
         { (result: Result<ProfileRespondResult, Error>) in
             DispatchQueue.main.async {
                 switch result {

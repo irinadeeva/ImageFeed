@@ -14,9 +14,11 @@ final class SplashViewController: UIViewController {
     private var tokenStorage = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
+    private var alertPresenter: AlertProtocol?
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        alertPresenter = AlertPresenter(viewController: self)
 
         if let token = tokenStorage.token {
             fetchProfile(token)
@@ -36,6 +38,22 @@ final class SplashViewController: UIViewController {
 
         window.rootViewController = tabBarController
     }
+
+    private func showAlertNetworkError() {
+        let alert = AlertModel(
+            title: "Что-то пошло не так(",
+            message: "Не удалось войти в систему",
+            buttonText: "OK") { [weak self] in
+                guard 
+                    let self,
+                    let token = tokenStorage.token else {return}
+
+                fetchProfile(token)
+            }
+
+        alertPresenter?.show(alertModel: alert)
+    }
+
 }
 
 extension SplashViewController {
@@ -76,7 +94,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.fetchProfile(token)
             case .failure(_):
                 UIBlockingProgressHUD.dismiss()
-                // TODO: [Sprint 11] Показать ошибку
+                showAlertNetworkError()
             }
         }
     }
@@ -89,20 +107,10 @@ extension SplashViewController: AuthViewControllerDelegate {
                 profileService.updateProfile(profile)
                 if let profile = profileService.profile {
                     fetchProfileImageURL(for: profile.username)
-//                    print(profileImageService.avatarURL)
                 }
-
-//                DispatchQueue.main.async {
-//                    self.switchToTabBarController()
-//                    UIBlockingProgressHUD.dismiss()
-//                }
             case .failure(_):
                 UIBlockingProgressHUD.dismiss()
-                // TODO: [Sprint 11] Показать ошибку
-//                DispatchQueue.main.async {
-//                    UIBlockingProgressHUD.dismiss()
-//                    // TODO: [Sprint 11] Показать ошибку
-//                }
+                showAlertNetworkError()
             }
         }
     }
@@ -128,7 +136,7 @@ extension SplashViewController: AuthViewControllerDelegate {
 
                 DispatchQueue.main.async {
                     UIBlockingProgressHUD.dismiss()
-                    // TODO: [Sprint 11] Показать ошибку
+                    self.showAlertNetworkError()
                 }
 
             }

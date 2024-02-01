@@ -42,7 +42,7 @@ final class ProfileViewController: UIViewController {
         updateAvatar()
     }
 
-    private func updateAvatar() {                                   
+    private func updateAvatar() {
         guard
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)

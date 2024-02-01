@@ -19,7 +19,7 @@ final class ProfileImageService {
         assert(Thread.isMainThread)
         guard let request = profileImageRequest(for: username) else { return }
 
-        let task = urlSession.objectTask(with: request)
+        let task = urlSession.objectTask(for: request)
         { (result: Result<UserRespondResult, Error>) in
             DispatchQueue.main.async {
                 switch result {

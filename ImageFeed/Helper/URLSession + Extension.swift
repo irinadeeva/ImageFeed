@@ -8,7 +8,7 @@
 import Foundation
 
 extension URLSession {
-    func objectTask<T: Decodable>(with request: URLRequest,
+    func objectTask<T: Decodable>(for request: URLRequest,
                                   completion: @escaping (Result<T, Error>) -> Void) -> URLSessionTask {
         let task = dataTask(with: request) { data, response, error in
             DispatchQueue.main.async {

@@ -6,6 +6,7 @@
 ////
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     private var profileImage: UIImageView!
@@ -31,14 +32,14 @@ final class ProfileViewController: UIViewController {
         }
 
         profileImageServiceObserver = NotificationCenter.default
-                    .addObserver(
-                        forName: ProfileImageService.DidChangeNotification,
-                        object: nil,
-                        queue: .main
-                    ) { [weak self] _ in
-                        guard let self = self else { return }
-                        self.updateAvatar()
-                    }
+            .addObserver(
+                forName: ProfileImageService.DidChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
         updateAvatar()
     }
 
@@ -47,7 +48,43 @@ final class ProfileViewController: UIViewController {
             let profileImageURL = ProfileImageService.shared.avatarURL,
             let url = URL(string: profileImageURL)
         else { return }
-        // TODO [Sprint 11] Обновить аватар, используя Kingfisher
+
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        let placeholder = UIImage(named: "YP Stub")
+
+        profileImage.kf.indicatorType = .activity
+
+        profileImage.kf.setImage(
+            with: url,
+            placeholder: placeholder,
+            options: [.processor(processor),
+                      .cacheMemoryOnly
+                     ]
+        )
+
+        //        { result in
+        //
+        //                                  switch result {
+        //                                // Успешная загрузка
+        //                                  case .success(let value):
+        //                                      // Картинка
+        //                                      print(value.image)
+        //
+        //                                      // Откуда картинка загружена:
+        //                                      // - .none — из сети.
+        //                                      // - .memory — из кэша оперативной памяти.
+        //                                      // - .disk — из дискового кэша.
+        //                                      print(value.cacheType)
+        //
+        //                                      // Информация об источнике.
+        //                                      print(value.source)
+        //
+        //                                // В случае ошибки
+        //                                  case .failure(let error):
+        //                                      print(error)
+        //                                  }
+        //                              }
+
     }
 
     private func updateProfileDetails(profile: Profile) {
@@ -60,7 +97,7 @@ final class ProfileViewController: UIViewController {
 
     private func setupProfileImage() {
         profileImage = UIImageView()
-        profileImage.image = UIImage(named: "Photo") ?? UIImage(named: "Stub")
+        //        profileImage.image = UIImage(named: "Photo") ?? UIImage(named: "Stub")
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileImage)
     }

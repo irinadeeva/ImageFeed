@@ -44,11 +44,13 @@ final class SplashViewController: UIViewController {
             title: "Что-то пошло не так(",
             message: "Не удалось войти в систему",
             buttonText: "OK") { [weak self] in
-                guard 
-                    let self,
-                    let token = tokenStorage.token else {return}
-
-                fetchProfile(token)
+                guard let self else {return}
+                if  let token = tokenStorage.token {
+                    fetchProfile(token)
+                }
+                
+// TODO: reload to get token ???
+                //authViewController(<#T##vc: AuthViewController##AuthViewController#>, didAuthenticateWithCode: <#T##String#>)
             }
 
         alertPresenter?.show(alertModel: alert)

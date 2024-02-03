@@ -10,10 +10,7 @@ import Foundation
 extension URLRequest {
     static func buildRequest(method: String? = nil,
                              path: String,
-                             queryItems: [URLQueryItem]? = nil
-                             //                      ,
-                             //                      body: (any Codable)? = nil
-    ) -> URLRequest? {
+                             queryItems: [URLQueryItem]? = nil) -> URLRequest? {
         guard var urlComponents = URLComponents(string: path) else { return nil }
 
         if let queryItems {
@@ -23,7 +20,7 @@ extension URLRequest {
         guard let url = urlComponents.url else { return nil }
 
         var request = URLRequest(url: url)
-        
+
         if let method {
             request.httpMethod = method
         }
@@ -32,16 +29,6 @@ extension URLRequest {
         if let token = OAuth2TokenStorage.shared.token {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
-
-        //        if let body {
-        //            do {
-        //                request.httpBody = try encoder.encode(body) // asData(json: body)
-        //                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        //            } catch {
-        //                return nil
-        //            }
-        //        }
-
 
         return request
     }

@@ -25,7 +25,6 @@ final class ProfileImageService {
                 switch result {
                 case .success(let data):
                     let smallImageURL = data.profileImage.small.absoluteString
-//                    print(smallImageURL)
                     completionHandler(.success(smallImageURL))
                 case .failure(let error):
                     completionHandler(.failure(error))

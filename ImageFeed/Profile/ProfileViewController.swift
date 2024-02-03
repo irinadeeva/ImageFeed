@@ -62,29 +62,7 @@ final class ProfileViewController: UIViewController {
                      ]
         )
 
-        //        { result in
-        //
-        //                                  switch result {
-        //                                // Успешная загрузка
-        //                                  case .success(let value):
-        //                                      // Картинка
-        //                                      print(value.image)
-        //
-        //                                      // Откуда картинка загружена:
-        //                                      // - .none — из сети.
-        //                                      // - .memory — из кэша оперативной памяти.
-        //                                      // - .disk — из дискового кэша.
-        //                                      print(value.cacheType)
-        //
-        //                                      // Информация об источнике.
-        //                                      print(value.source)
-        //
-        //                                // В случае ошибки
-        //                                  case .failure(let error):
-        //                                      print(error)
-        //                                  }
-        //                              }
-
+#warning ("TODO: cache the image")
     }
 
     private func updateProfileDetails(profile: Profile) {
@@ -97,7 +75,6 @@ final class ProfileViewController: UIViewController {
 
     private func setupProfileImage() {
         profileImage = UIImageView()
-        //        profileImage.image = UIImage(named: "Photo") ?? UIImage(named: "Stub")
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileImage)
     }

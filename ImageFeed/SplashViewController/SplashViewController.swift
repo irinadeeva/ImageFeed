@@ -48,9 +48,7 @@ final class SplashViewController: UIViewController {
                 if  let token = tokenStorage.token {
                     fetchProfile(token)
                 }
-                
-// TODO: reload to get token ???
-                //authViewController(<#T##vc: AuthViewController##AuthViewController#>, didAuthenticateWithCode: <#T##String#>)
+                #warning("TODO: reload to get token ??? but how??")
             }
 
         alertPresenter?.show(alertModel: alert)

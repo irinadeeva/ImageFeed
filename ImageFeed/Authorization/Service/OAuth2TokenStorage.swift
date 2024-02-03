@@ -10,7 +10,7 @@ import SwiftKeychainWrapper
 
 class OAuth2TokenStorage {
     static let shared = OAuth2TokenStorage()
-//    private let userDefaults = UserDefaults.standard
+    
     var token: String? {
         get {
             return KeychainWrapper.standard.string(forKey: "Auth token")

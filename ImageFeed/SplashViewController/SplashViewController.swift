@@ -45,6 +45,7 @@ final class SplashViewController: UIViewController {
             message: "Не удалось войти в систему",
             buttonText: "OK") { [weak self] in
                 guard let self else {return}
+                
                 if  let token = tokenStorage.token {
                     fetchProfile(token)
                 }

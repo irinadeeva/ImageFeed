@@ -33,6 +33,7 @@
 		BEE8786C2B6C134B00B1DDDE /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE8786B2B6C134B00B1DDDE /* AlertPresenter.swift */; };
 		BEE8786F2B6CE47900B1DDDE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BEE8786E2B6CE47900B1DDDE /* Kingfisher */; };
 		BEE878722B6D49AB00B1DDDE /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = BEE878712B6D49AB00B1DDDE /* SwiftKeychainWrapper */; };
+		BEE878742B6E4F9D00B1DDDE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE878732B6E4F9D00B1DDDE /* TabBarController.swift */; };
 		BEF298702B18FDC000CDB13D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */; };
 		BEF298722B18FDC000CDB13D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF298712B18FDC000CDB13D /* SceneDelegate.swift */; };
 		BEF298742B18FDC000CDB13D /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF298732B18FDC000CDB13D /* ImagesListViewController.swift */; };
@@ -65,6 +66,7 @@
 		BEE878662B6C12A700B1DDDE /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		BEE878692B6C130F00B1DDDE /* AlertProtocol .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertProtocol .swift"; sourceTree = "<group>"; };
 		BEE8786B2B6C134B00B1DDDE /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		BEE878732B6E4F9D00B1DDDE /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		BEF2986C2B18FDC000CDB13D /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEF298712B18FDC000CDB13D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -203,11 +205,12 @@
 		BEF2986E2B18FDC000CDB13D /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
+				BEF298712B18FDC000CDB13D /* SceneDelegate.swift */,
+				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
+				BED7EEE52B5D07EA006AA355 /* Constants.swift */,
+				BEE878732B6E4F9D00B1DDDE /* TabBarController.swift */,
 				BEE878682B6C12F700B1DDDE /* Alert */,
 				BE3250052B6A8B7F007D46F7 /* Helper */,
-				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
-				BEF298712B18FDC000CDB13D /* SceneDelegate.swift */,
-				BED7EEE52B5D07EA006AA355 /* Constants.swift */,
 				BED7EEF02B638BB2006AA355 /* Models */,
 				BED7EEFB2B658601006AA355 /* SplashViewController */,
 				BED7EEE72B5E5F3E006AA355 /* Authorization */,
@@ -306,6 +309,7 @@
 				BE5A40D22B3E849B00AC88CD /* ProfileViewController.swift in Sources */,
 				BE3250072B6A8D6C007D46F7 /* URLRequest+Extension.swift in Sources */,
 				BEE878602B6AC47E00B1DDDE /* URLSession + Extension.swift in Sources */,
+				BEE878742B6E4F9D00B1DDDE /* TabBarController.swift in Sources */,
 				BED7EEEF2B604ECA006AA355 /* WebViewViewControllerDelegate.swift in Sources */,
 				BEE878672B6C12A700B1DDDE /* AlertModel.swift in Sources */,
 				BED7EEF62B6390F0006AA355 /* OAuth2Service.swift in Sources */,

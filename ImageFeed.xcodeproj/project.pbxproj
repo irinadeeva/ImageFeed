@@ -206,8 +206,8 @@
 		BEF2986E2B18FDC000CDB13D /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				BEF298712B18FDC000CDB13D /* SceneDelegate.swift */,
 				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
+				BEF298712B18FDC000CDB13D /* SceneDelegate.swift */,
 				BED7EEE52B5D07EA006AA355 /* Constants.swift */,
 				BEE878732B6E4F9D00B1DDDE /* TabBarController.swift */,
 				BED7EEFB2B658601006AA355 /* SplashViewController */,

@@ -121,6 +121,7 @@
 		BEC284BA2B29D05B0096D5CE /* ImageList */ = {
 			isa = PBXGroup;
 			children = (
+				BE3638342B590B3F00A202D1 /* SinlgeImageView */,
 				BEC284B82B29D0340096D5CE /* ImageListCell.swift */,
 				BEF298732B18FDC000CDB13D /* ImagesListViewController.swift */,
 			);
@@ -209,14 +210,13 @@
 				BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */,
 				BED7EEE52B5D07EA006AA355 /* Constants.swift */,
 				BEE878732B6E4F9D00B1DDDE /* TabBarController.swift */,
-				BEE878682B6C12F700B1DDDE /* Alert */,
-				BE3250052B6A8B7F007D46F7 /* Helper */,
-				BED7EEF02B638BB2006AA355 /* Models */,
 				BED7EEFB2B658601006AA355 /* SplashViewController */,
 				BED7EEE72B5E5F3E006AA355 /* Authorization */,
 				BEC284BA2B29D05B0096D5CE /* ImageList */,
 				BE5A40D02B3E848800AC88CD /* Profile */,
-				BE3638342B590B3F00A202D1 /* SinlgeImageView */,
+				BEE878682B6C12F700B1DDDE /* Alert */,
+				BE3250052B6A8B7F007D46F7 /* Helper */,
+				BED7EEF02B638BB2006AA355 /* Models */,
 				BEF298752B18FDC000CDB13D /* Main.storyboard */,
 				BEF298782B18FDC200CDB13D /* Assets.xcassets */,
 				BEF2987A2B18FDC200CDB13D /* LaunchScreen.storyboard */,

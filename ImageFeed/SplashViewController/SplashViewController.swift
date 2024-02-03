@@ -9,6 +9,7 @@ import UIKit
 import ProgressHUD
 
 final class SplashViewController: UIViewController {
+    private var launchImage: UIImageView!
     private let showAuthenticationScreenIdentifier = "ShowAuthenticationScreen"
     private let oAuth2Service = OAuth2Service.shared
     private var tokenStorage = OAuth2TokenStorage.shared
@@ -18,6 +19,8 @@ final class SplashViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        view.backgroundColor = .ypBlack
+        setupImage()
         alertPresenter = AlertPresenter(viewController: self)
 
         if let token = tokenStorage.token {
@@ -45,16 +48,26 @@ final class SplashViewController: UIViewController {
             message: "Не удалось войти в систему",
             buttonText: "OK") { [weak self] in
                 guard let self else {return}
-                
+
                 if  let token = tokenStorage.token {
                     fetchProfile(token)
+                } else {
+                    // new way to recall auth 
                 }
-                #warning("TODO: reload to get token ??? but how??")
             }
 
         alertPresenter?.show(alertModel: alert)
     }
 
+    private func setupImage() {
+        launchImage = UIImageView()
+        launchImage.image = UIImage(named: "Vector")
+        launchImage.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(launchImage)
+
+        launchImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        launchImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
 }
 
 extension SplashViewController {

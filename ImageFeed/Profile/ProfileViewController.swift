@@ -19,7 +19,8 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .ypBlack
+        
         setupProfileImage()
         setupUserNameLabel()
         setupUserNicknameLabel()
@@ -61,8 +62,6 @@ final class ProfileViewController: UIViewController {
                       .cacheMemoryOnly
                      ]
         )
-
-#warning ("TODO: cache the image")
     }
 
     private func updateProfileDetails(profile: Profile) {

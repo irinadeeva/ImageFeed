@@ -6,6 +6,7 @@
 ////
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     private var profileImage: UIImageView!
@@ -13,47 +14,88 @@ final class ProfileViewController: UIViewController {
     private var userNickname: UILabel!
     private var userDescription: UILabel!
     private var logoutButton: UIButton!
+    private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .ypBlack
+        
         setupProfileImage()
         setupUserNameLabel()
         setupUserNicknameLabel()
         setupUserDescriptionLabel()
         setupLogoutButton()
-        
         setupConstraints()
+
+        if let profile = profileService.profile {
+            updateProfileDetails(profile: profile)
+        }
+
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateAvatar()
+            }
+        updateAvatar()
+    }
+
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+
+        let processor = RoundCornerImageProcessor(cornerRadius: 61)
+        let placeholder = UIImage(named: "YP Stub")
+
+        profileImage.kf.indicatorType = .activity
+
+        profileImage.kf.setImage(
+            with: url,
+            placeholder: placeholder,
+            options: [.processor(processor),
+                      .cacheMemoryOnly
+                     ]
+        )
+    }
+
+    private func updateProfileDetails(profile: Profile) {
+        userName.text = profile.fullname
+        userNickname.text = profile.loginname
+        if let bio = profile.bio {
+            userDescription.text = bio
+        }
     }
 
     private func setupProfileImage() {
         profileImage = UIImageView()
-        profileImage.image = UIImage(named: "Photo") ?? UIImage(named: "Stub")
         profileImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(profileImage)
     }
-    
+
     private func setupUserNameLabel() {
         userName = UILabel()
-        userName.text = "Екатерина Новикова"
         userName.textColor = .ypWhite
         userName.font = .systemFont(ofSize: 23, weight: .semibold)
         userName.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(userName)
     }
-    
+
     private func setupUserNicknameLabel() {
         userNickname = UILabel()
-        userNickname.text = "@ekaterina_nov"
         userNickname.textColor = .ypGrey
         userNickname.font = .systemFont(ofSize: 13)
         userNickname.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(userNickname)
     }
-    
+
     private func setupUserDescriptionLabel() {
         userDescription = UILabel()
-        userDescription.text = "Hello, world!"
         userDescription.textColor = .ypWhite
         userDescription.font = .systemFont(ofSize: 13)
         userDescription.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +112,7 @@ final class ProfileViewController: UIViewController {
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(logoutButton)
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             profileImage.heightAnchor.constraint(equalToConstant: 70),
@@ -87,7 +129,7 @@ final class ProfileViewController: UIViewController {
             userDescription.leadingAnchor.constraint(equalTo: profileImage.leadingAnchor)
         ])
     }
-    
+
     @objc
     private func tapLogoutButton() {
     }

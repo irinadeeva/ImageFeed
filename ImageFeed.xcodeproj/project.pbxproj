@@ -34,6 +34,8 @@
 		BEE8786F2B6CE47900B1DDDE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = BEE8786E2B6CE47900B1DDDE /* Kingfisher */; };
 		BEE878722B6D49AB00B1DDDE /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = BEE878712B6D49AB00B1DDDE /* SwiftKeychainWrapper */; };
 		BEE878742B6E4F9D00B1DDDE /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE878732B6E4F9D00B1DDDE /* TabBarController.swift */; };
+		BEE878762B6F7B2300B1DDDE /* ProfileResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE878752B6F7B2300B1DDDE /* ProfileResultResponse.swift */; };
+		BEE878782B6F7B6200B1DDDE /* UserResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEE878772B6F7B6200B1DDDE /* UserResultResponse.swift */; };
 		BEF298702B18FDC000CDB13D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */; };
 		BEF298722B18FDC000CDB13D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF298712B18FDC000CDB13D /* SceneDelegate.swift */; };
 		BEF298742B18FDC000CDB13D /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF298732B18FDC000CDB13D /* ImagesListViewController.swift */; };
@@ -67,6 +69,8 @@
 		BEE878692B6C130F00B1DDDE /* AlertProtocol .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AlertProtocol .swift"; sourceTree = "<group>"; };
 		BEE8786B2B6C134B00B1DDDE /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		BEE878732B6E4F9D00B1DDDE /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		BEE878752B6F7B2300B1DDDE /* ProfileResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileResultResponse.swift; sourceTree = "<group>"; };
+		BEE878772B6F7B6200B1DDDE /* UserResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResultResponse.swift; sourceTree = "<group>"; };
 		BEF2986C2B18FDC000CDB13D /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEF2986F2B18FDC000CDB13D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BEF298712B18FDC000CDB13D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,7 +150,9 @@
 			children = (
 				BED7EEF12B638BCD006AA355 /* OAuthTokenResponseBody.swift */,
 				BE3250032B6A77CD007D46F7 /* Profile.swift */,
+				BEE878752B6F7B2300B1DDDE /* ProfileResultResponse.swift */,
 				BEE878642B6B9E9400B1DDDE /* ProfileImage.swift */,
+				BEE878772B6F7B6200B1DDDE /* UserResultResponse.swift */,
 				BEE878662B6C12A700B1DDDE /* AlertModel.swift */,
 			);
 			path = Models;
@@ -311,10 +317,12 @@
 				BEE878602B6AC47E00B1DDDE /* URLSession + Extension.swift in Sources */,
 				BEE878742B6E4F9D00B1DDDE /* TabBarController.swift in Sources */,
 				BED7EEEF2B604ECA006AA355 /* WebViewViewControllerDelegate.swift in Sources */,
+				BEE878782B6F7B6200B1DDDE /* UserResultResponse.swift in Sources */,
 				BEE878672B6C12A700B1DDDE /* AlertModel.swift in Sources */,
 				BED7EEF62B6390F0006AA355 /* OAuth2Service.swift in Sources */,
 				BE324FFE2B6A710E007D46F7 /* UIBlockingProgressHUD.swift in Sources */,
 				BEE8786C2B6C134B00B1DDDE /* AlertPresenter.swift in Sources */,
+				BEE878762B6F7B2300B1DDDE /* ProfileResultResponse.swift in Sources */,
 				BED7EEFD2B66B172006AA355 /* AuthViewControllerDelegate.swift in Sources */,
 				BEF298742B18FDC000CDB13D /* ImagesListViewController.swift in Sources */,
 				BEC284B92B29D0340096D5CE /* ImageListCell.swift in Sources */,

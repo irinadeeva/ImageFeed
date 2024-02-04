@@ -7,14 +7,6 @@
 
 import Foundation
 
-struct UserRespondResult: Decodable {
-    let profileImage: ProfileImage
-
-    private enum CodingKeys: String, CodingKey {
-        case profileImage = "profile_image"
-    }
-}
-
 struct ProfileImage: Decodable {
     let small: URL
     let medium: URL

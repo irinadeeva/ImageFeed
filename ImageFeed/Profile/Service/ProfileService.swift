@@ -19,7 +19,7 @@ final class ProfileService {
         guard let request = profileRequest() else { return }
 
         let task = urlSession.objectTask(for: request) 
-        { (result: Result<ProfileRespondResult, Error>) in
+        { (result: Result<ProfileResultResponse, Error>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
@@ -42,6 +42,6 @@ final class ProfileService {
 extension ProfileService {
     func profileRequest() -> URLRequest? {
         return URLRequest.buildRequest(
-            path: unsplashDefaultBaseURL + "me")
+            path: Constants.unsplashDefaultBaseURL + "me")
     }
 }

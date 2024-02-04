@@ -103,7 +103,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             case .success(let token):
                 self.tokenStorage.token = token
                 self.fetchProfile(token)
-            case .failure(_):
+            case .failure:
                 UIBlockingProgressHUD.dismiss()
                 showAlertNetworkError()
             }
@@ -135,7 +135,7 @@ extension SplashViewController: AuthViewControllerDelegate {
 
                 NotificationCenter.default
                     .post(
-                        name: ProfileImageService.DidChangeNotification,
+                        name: ProfileImageService.didChangeNotification,
                         object: self,
                         userInfo: ["URL": imageURL])
 

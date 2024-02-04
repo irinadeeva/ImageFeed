@@ -9,7 +9,7 @@ import Foundation
 
 final class ProfileImageService {
     static let shared = ProfileImageService()
-    static let DidChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     private (set) var avatarURL: String?
     private let urlSession = URLSession.shared
 
@@ -20,7 +20,7 @@ final class ProfileImageService {
         guard let request = profileImageRequest(for: username) else { return }
 
         let task = urlSession.objectTask(for: request)
-        { (result: Result<UserRespondResult, Error>) in
+        { (result: Result<UserResultResponse, Error>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
@@ -44,7 +44,7 @@ final class ProfileImageService {
 extension ProfileImageService {
     func profileImageRequest(for username: String) -> URLRequest? {
             return URLRequest.buildRequest(
-                path: unsplashDefaultBaseURL + "users/\(username)")
+                path: Constants.unsplashDefaultBaseURL + "users/\(username)")
 
     }
 }

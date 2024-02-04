@@ -70,12 +70,12 @@ extension WebViewViewController: WKNavigationDelegate {
 extension WebViewViewController {
     func authorisationRequest() -> URLRequest? {
         return URLRequest.buildRequest(
-            path: unsplashAuthorizeURLString,
+            path: Constants.unsplashAuthorizeURLString,
             queryItems: [
-                URLQueryItem(name: "client_id", value: accessKey),
-                URLQueryItem(name: "redirect_uri", value: redirectUR),
+                URLQueryItem(name: "client_id", value: Constants.accessKey),
+                URLQueryItem(name: "redirect_uri", value: Constants.redirectUR),
                 URLQueryItem(name: "response_type", value: "code"),
-                URLQueryItem(name: "scope", value: accessScope)
+                URLQueryItem(name: "scope", value: Constants.accessScope)
         ])
     }
 }

@@ -11,7 +11,7 @@ final class ImagesListService {
     static let shared = ImagesListService()
     private(set) var photos: [Photo] = []
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
-        // TODO: после обновления значения массива photos публикуется нотификация ImagesListService.DidChangeNotification.
+    // TODO: после обновления значения массива photos публикуется нотификация ImagesListService.DidChangeNotification.
     private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var lastLoadedPage: Int?
@@ -20,6 +20,10 @@ final class ImagesListService {
 
     func fetchPhotosNextPage() {
         assert(Thread.isMainThread)
+        if self.task != nil {
+            return
+        }
+
         var nextPage = 0
 
         if let lastPage = lastLoadedPage {
@@ -28,9 +32,6 @@ final class ImagesListService {
             nextPage = 1
         }
 
-        if self.task != nil {
-            return
-        }
         guard let request = imageListRequest(for: nextPage) else {return}
 
         let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResultResponse], Error>) in DispatchQueue.main.async {
@@ -42,7 +43,15 @@ final class ImagesListService {
                     let photo = Photo(from: photoResponse)
                     return photo
                 }
-                self.photos = photos
+
+                self.photos.append(contentsOf: photos)
+                print(self.photos)
+
+                NotificationCenter.default.post(
+                    name: ImagesListService.didChangeNotification,
+                    object: self,
+                    userInfo: ["Photos" : photos]) // non lo so che e vero
+
             case .failure(let error):
                 // TODO: something different
                 print("from fetchPhotosNextPage \(error)")
@@ -52,6 +61,7 @@ final class ImagesListService {
 
         }
 
+        self.lastLoadedPage = nextPage
         self.task = task
         task.resume()
     }

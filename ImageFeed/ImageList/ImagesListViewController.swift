@@ -8,8 +8,11 @@
 import UIKit
 
 final class ImagesListViewController: UIViewController {
+    private let imagesListService = ImagesListService.shared
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
-    private let photoNames: [String] = Array(0..<20).map{ "\($0)" }
+    private var photos: [Photo] = []
+//    private let photoNames: [String] = Array(0..<20).map{ "\($0)" }
+    private var imageListServiceObserver: NSObjectProtocol?
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -25,14 +28,23 @@ final class ImagesListViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        ImagesListService.shared.fetchPhotosNextPage()
+
+        imageListServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ImagesListService.didChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                guard let self = self else { return }
+                self.updateTableViewAnimated()
+            }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
             if let viewController = segue.destination as? SingleImageViewController,
                let indexPath = sender as? IndexPath {
-                let image = UIImage(named: photoNames[indexPath.row])
+                let image = UIImage(named: photos[indexPath.row].largeImageURL)
                 viewController.image = image
             }
         } else {
@@ -40,8 +52,23 @@ final class ImagesListViewController: UIViewController {
         }
     }
 
+    private func updateTableViewAnimated() {
+        let oldCount = photos.count
+        let newCount = imagesListService.photos.count
+
+        if oldCount != newCount {
+            photos = imagesListService.photos
+            tableView.performBatchUpdates {
+                let indexPaths = (oldCount..<newCount).map { i in
+                    IndexPath(row: i, section: 0)
+                }
+                tableView.insertRows(at: indexPaths, with: .automatic)
+            } completion: { _ in }
+        }
+    }
+
     private func configCell(for cell: ImageListCell, with indexPath: IndexPath) {
-        guard let imageCell = UIImage(named: photoNames[indexPath.row]) else {
+        guard let imageCell = UIImage(named: photos[indexPath.row].largeImageURL) else {
             return
         }
         cell.imageCell.image = imageCell
@@ -56,12 +83,13 @@ final class ImagesListViewController: UIViewController {
 
 extension ImagesListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return photoNames.count
+        return photos.count
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        indexPath.row + 1 == photos.count
-        //        fetchPhotosNextPage()
+        if indexPath.row + 1 == photos.count {
+            imagesListService.fetchPhotosNextPage()
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -82,7 +110,7 @@ extension ImagesListViewController : UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let image = UIImage(named: photoNames[indexPath.row]) else {
+        guard let image = UIImage(named: photos[indexPath.row].largeImageURL) else {
             return 0
         }
 

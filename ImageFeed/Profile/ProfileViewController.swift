@@ -20,7 +20,7 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ypBlack
-        
+
         setupProfileImage()
         setupUserNameLabel()
         setupUserNicknameLabel()
@@ -41,6 +41,7 @@ final class ProfileViewController: UIViewController {
                 guard let self = self else { return }
                 self.updateAvatar()
             }
+
         updateAvatar()
     }
 
@@ -60,7 +61,7 @@ final class ProfileViewController: UIViewController {
             placeholder: placeholder,
             options: [.processor(processor),
                       .cacheMemoryOnly
-                     ]
+            ]
         )
     }
 

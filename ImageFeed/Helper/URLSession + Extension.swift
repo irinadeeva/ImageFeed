@@ -17,19 +17,25 @@ extension URLSession {
 
                 }
 
+//                print("objectTask error:\(error?.localizedDescription)")
+
                 if let response = response as? HTTPURLResponse,
                    response.statusCode < 200 || response.statusCode >= 300 {
                     completion(.failure(NetworkError.codeError))
                 }
+
+//                print("objectTask response:\(response)")
 
                 guard let data = data else {
                     completion(.failure(NetworkError.noData))
                     return
                 }
 
+//                print("objectTask data:\(data)")
+
                 do {
                     let decodedData = try JSONDecoder().decode(T.self, from: data)
-
+//                    print("\n objectTask decodedData:\(decodedData)")
                     completion(.success(decodedData))
                 } catch {
                     completion(.failure(NetworkError.invalidResponse))

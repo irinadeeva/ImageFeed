@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ImagesListViewController: UIViewController {
     private let imagesListService = ImagesListService.shared
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos: [Photo] = []
-//    private let photoNames: [String] = Array(0..<20).map{ "\($0)" }
     private var imageListServiceObserver: NSObjectProtocol?
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -29,6 +29,8 @@ final class ImagesListViewController: UIViewController {
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
 
+        imagesListService.fetchPhotosNextPage()
+
         imageListServiceObserver = NotificationCenter.default
             .addObserver(
                 forName: ImagesListService.didChangeNotification,
@@ -40,17 +42,18 @@ final class ImagesListViewController: UIViewController {
             }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showSingleImageSegueIdentifier {
-            if let viewController = segue.destination as? SingleImageViewController,
-               let indexPath = sender as? IndexPath {
-                let image = UIImage(named: photos[indexPath.row].largeImageURL)
-                viewController.image = image
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == showSingleImageSegueIdentifier {
+                if let viewController = segue.destination as? SingleImageViewController,
+                   let indexPath = sender as? IndexPath {
+                    if let image = getCachedImage(by: photos[indexPath.row].largeImageURL) {
+                        viewController.image = image
+                    }
+                }
+            } else {
+                super.prepare(for: segue, sender: sender)
             }
-        } else {
-            super.prepare(for: segue, sender: sender)
         }
-    }
 
     private func updateTableViewAnimated() {
         let oldCount = photos.count
@@ -68,14 +71,33 @@ final class ImagesListViewController: UIViewController {
     }
 
     private func configCell(for cell: ImageListCell, with indexPath: IndexPath) {
-        guard let imageCell = UIImage(named: photos[indexPath.row].largeImageURL) else {
+        let photo = photos[indexPath.row]
+
+        guard let imageURL = URL(string: photo.thumbImageURL) else {
             return
         }
-        cell.imageCell.image = imageCell
 
-        cell.dataLabel.text =  dateFormatter.string(from: Date())
+        let processor = RoundCornerImageProcessor(cornerRadius: 16)
+        let placeholder = UIImage(named: "Photo Stub")
 
-        let buttonImage = (indexPath.row % 2) == 0 ? UIImage(named: "Active") : UIImage(named: "No Active")
+        cell.imageCell.kf.setImage(
+            with: imageURL,
+            placeholder: placeholder,
+            options: [.cacheMemoryOnly]
+        ) { [weak self] result in
+            guard let self else { return }
+            switch result {
+            case .success(let data):
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+            case .failure(let error):
+                print(error)
+            }
+
+        }
+
+        cell.dataLabel.text =  dateFormatter.string(from: photo.createdAt ?? Date())
+
+        let buttonImage = (photo.isLiked) == true ? UIImage(named: "Active") : UIImage(named: "No Active")
 
         cell.favouriteButton.setImage(buttonImage, for: .normal)
     }
@@ -102,6 +124,28 @@ extension ImagesListViewController : UITableViewDataSource {
         configCell(for: imageListCell, with: indexPath)
         return imageListCell
     }
+
+    private func getCachedImage(by url: String) -> UIImage? {
+        guard let imageURL = URL(string: url) else {
+            return nil
+        }
+
+        guard var image = UIImage(named: "Photo Stub") else {
+            return nil
+        }
+
+        KingfisherManager.shared.retrieveImage(with: imageURL) { result in
+            switch result {
+                case .success(let value):
+                    print("Image: \(value.image). Got from: \(value.cacheType)")
+                    image = value.image
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+        }
+
+        return image
+    }
 }
 
 extension ImagesListViewController : UITableViewDelegate {
@@ -110,7 +154,9 @@ extension ImagesListViewController : UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let image = UIImage(named: photos[indexPath.row].largeImageURL) else {
+        let photo = photos[indexPath.row]
+
+        guard let image = getCachedImage(by: photo.thumbImageURL) else {
             return 0
         }
 

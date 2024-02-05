@@ -52,7 +52,7 @@ final class ProfileViewController: UIViewController {
         else { return }
 
         let processor = RoundCornerImageProcessor(cornerRadius: 61)
-        let placeholder = UIImage(named: "YP Stub")
+        let placeholder = UIImage(named: "Profile Stub")
 
         profileImage.kf.indicatorType = .activity
 

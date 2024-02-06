@@ -14,7 +14,7 @@ struct Photo {
     let welcomeDescription: String?
     let thumbImageURL: String
     let largeImageURL: String
-    var isLiked: Bool
+    let isLiked: Bool
 
     init(from photo: PhotoResultResponse) {
         self.id = photo.id
@@ -26,7 +26,13 @@ struct Photo {
         self.isLiked = photo.isLiked
     }
 
-    mutating func toggleLike() {
-        self.isLiked = !self.isLiked
+    init(id: String, size: CGSize, createdAt: Date?, welcomeDescription: String?, thumbImageURL: String, largeImageURL: String, isLiked: Bool) {
+        self.id = id
+        self.size = size
+        self.createdAt = createdAt
+        self.welcomeDescription = welcomeDescription
+        self.thumbImageURL = thumbImageURL
+        self.largeImageURL = largeImageURL
+        self.isLiked = isLiked
     }
 }

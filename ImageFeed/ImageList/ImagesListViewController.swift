@@ -42,20 +42,20 @@ final class ImagesListViewController: UIViewController {
             }
     }
 
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == showSingleImageSegueIdentifier {
-                if let viewController = segue.destination as? SingleImageViewController,
-                   let indexPath = sender as? IndexPath {
-                    // mistake that largeImageURL is not in a cache !!!! so I need to download it
-                    // поменять заклушку 
-                    if let image = getCachedImage(by: photos[indexPath.row].largeImageURL) {
-                        viewController.image = image
-                    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == showSingleImageSegueIdentifier {
+            if let viewController = segue.destination as? SingleImageViewController,
+               let indexPath = sender as? IndexPath {
+                // mistake that largeImageURL is not in a cache !!!! so I need to download it
+                // поменять заклушку
+                if let image = getCachedImage(by: photos[indexPath.row].largeImageURL) {
+                    viewController.image = image
                 }
-            } else {
-                super.prepare(for: segue, sender: sender)
             }
+        } else {
+            super.prepare(for: segue, sender: sender)
         }
+    }
 
     private func updateTableViewAnimated() {
         let oldCount = photos.count
@@ -99,9 +99,7 @@ final class ImagesListViewController: UIViewController {
 
         cell.dataLabel.text =  dateFormatter.string(from: photo.createdAt ?? Date())
 
-        let buttonImage = (photo.isLiked) == true ? UIImage(named: "Active") : UIImage(named: "No Active")
-
-        cell.favouriteButton.setImage(buttonImage, for: .normal)
+        cell.setIsLiked(isLiked: photo.isLiked)
     }
 }
 
@@ -113,8 +111,6 @@ extension ImagesListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == photos.count {
             imagesListService.fetchPhotosNextPage()
-//            //debug
-//            imagesListService.changeLike(photoId: photos[0].id, isLike: true) {_ in
         }
     }
 
@@ -127,10 +123,8 @@ extension ImagesListViewController : UITableViewDataSource {
 
         configCell(for: imageListCell, with: indexPath)
 
-        if indexPath.row == 0 {
-            imagesListService.changeLike(photoId: photos[indexPath.row].id, isLike: true) {_ in
-            }
-        }
+        imageListCell.delegate = self
+
         return imageListCell
     }
 
@@ -145,12 +139,12 @@ extension ImagesListViewController : UITableViewDataSource {
 
         KingfisherManager.shared.retrieveImage(with: imageURL) { result in
             switch result {
-                case .success(let value):
-//                    print("Image: \(value.image). Got from: \(value.cacheType)")
-                    image = value.image
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
+            case .success(let value):
+                // print("Image: \(value.image). Got from: \(value.cacheType)")
+                image = value.image
+            case .failure(let error):
+                print("Error: \(error)")
+            }
         }
 
         return image
@@ -183,4 +177,24 @@ extension ImagesListViewController : UITableViewDelegate {
     }
 }
 
+extension ImagesListViewController: ImageListCellDelegate {
 
+    func imageListCellDidTapLike(_ cell: ImageListCell) {
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        let photo = self.photos[indexPath.row]
+
+        UIBlockingProgressHUD.show()
+        imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+            switch result {
+            case .success:
+                self.photos = self.imagesListService.photos
+                cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
+                UIBlockingProgressHUD.dismiss()
+            case .failure:
+                UIBlockingProgressHUD.dismiss()
+                // TODO: Показать ошибку с использованием UIAlertController
+            }
+
+        }
+    }
+}

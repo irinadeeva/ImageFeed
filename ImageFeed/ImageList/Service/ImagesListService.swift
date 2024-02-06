@@ -31,31 +31,30 @@ final class ImagesListService {
 
         guard let request = imageListRequest(for: nextPage) else {return}
 
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResultResponse], Error>) in DispatchQueue.main.async {
-            guard let self else { return }
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResultResponse], Error>) in
+            DispatchQueue.main.async {
+                guard let self else { return }
 
-            switch result {
-            case .success(let photoResponses):
-                let photos: [Photo] = photoResponses.map { photoResponse in
-                    let photo = Photo(from: photoResponse)
-                    return photo
+                switch result {
+                case .success(let photoResponses):
+                    let photos: [Photo] = photoResponses.map { photoResponse in
+                        let photo = Photo(from: photoResponse)
+                        return photo
+                    }
+
+                    self.photos.append(contentsOf: photos)
+
+                    NotificationCenter.default.post(
+                        name: ImagesListService.didChangeNotification,
+                        object: self,
+                        userInfo: ["Photos" : photos]) // non lo so che e vero
+
+                case .failure(let error):
+                    // TODO: something different
+                    print("\(error)")
                 }
-
-                self.photos.append(contentsOf: photos)
-
-
-                NotificationCenter.default.post(
-                    name: ImagesListService.didChangeNotification,
-                    object: self,
-                    userInfo: ["Photos" : photos]) // non lo so che e vero
-
-                //                print(self.photos)
-            case .failure(let error):
-                // TODO: something different
-                print("\(error)")
+                self.task = nil
             }
-            self.task = nil
-        }
 
         }
 
@@ -65,49 +64,50 @@ final class ImagesListService {
     }
 
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
-//        let newPhoto: LikeResultResponse?
+        var request: URLRequest?
 
         if isLike {
-            addToFavorite(for: photoId)
+            request = updateLikeRequest(for: photoId, method: "POST")
         } else {
-            deleteFromFavorite(for: photoId)
+            request = updateLikeRequest(for: photoId, method: "DELETE")
         }
 
-//        guard let newPhoto else { return }
-//
-//        if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
-//            var photo = self.photos[index]
-//
-//            let newPhoto = photo.toggleLike()
-//
-//            self.photos[index] = newPhoto
-//        }
+        guard let request else { return }
 
-    }
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<LikeResultResponse, Error>) in
+            DispatchQueue.main.async {
+                guard let self else { return }
 
-    private func addToFavorite(for photoId: String) {
-        guard let request = updateLikeRequest(for: photoId) else { return }
+                switch result {
+                case .success(let photoResponse):
 
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<LikeResultResponse, Error>) in DispatchQueue.main.async {
-            guard let self else { return }
+                    if let index = self.photos.firstIndex(where: { $0.id == photoResponse.photo.id }) {
+                        let photo = self.photos[index]
 
-            switch result {
-            case .success(let photoResponse):
-                print("addToFavorite photoResponse \(photoResponse)")
+                        let newPhoto = Photo(
+                            id: photoResponse.photo.id,
+                            size: photo.size,
+                            createdAt: photo.createdAt,
+                            welcomeDescription: photo.welcomeDescription,
+                            thumbImageURL: photo.thumbImageURL,
+                            largeImageURL: photo.largeImageURL,
+                            isLiked: photoResponse.photo.isLiked
+                        )
 
-            case .failure(let error):
-                // TODO: something different
-                print("addToFavorite error \(error)")
+                        self.photos[index] = newPhoto
+
+                        completion(.success(()))
+                    }
+
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
-        }
         }
 
         task.resume()
     }
 
-    private func deleteFromFavorite(for photoId: String) {
-//        return nil
-    }
 }
 
 extension ImagesListService {
@@ -120,9 +120,9 @@ extension ImagesListService {
         )
     }
 
-    func updateLikeRequest(for id: String) -> URLRequest? {
+    func updateLikeRequest(for id: String, method: String) -> URLRequest? {
         return URLRequest.buildRequest(
-            method: "POST",
+            method: method,
             path: Constants.unsplashDefaultBaseURL + "photos/\(id)/like"
         )
     }

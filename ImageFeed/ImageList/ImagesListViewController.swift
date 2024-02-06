@@ -17,8 +17,8 @@ final class ImagesListViewController: UIViewController {
 
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
+        formatter.dateFormat = "dd MMMM yyyy"
+        formatter.locale = Locale(identifier: "ru_RU")
         return formatter
     }()
 
@@ -109,8 +109,11 @@ extension ImagesListViewController : UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == photos.count {
-            imagesListService.fetchPhotosNextPage()
+            DispatchQueue.global().async { [weak self] in
+                self?.imagesListService.fetchPhotosNextPage() 
+            }
         }
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -196,7 +199,8 @@ extension ImagesListViewController: ImageListCellDelegate {
         let photo = self.photos[indexPath.row]
 
         UIBlockingProgressHUD.show()
-        imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { result in
+        imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success:
                 self.photos = self.imagesListService.photos

@@ -23,6 +23,7 @@ final class SplashViewController: UIViewController {
         setupImage()
         alertPresenter = AlertPresenter(viewController: self)
 
+        guard UIBlockingProgressHUD.isShowing == false else { return }
         if let token = tokenStorage.token {
             fetchProfile(token)
         } else {
@@ -93,7 +94,6 @@ extension SplashViewController: AuthViewControllerDelegate {
             self.fetchOAuthToken(code)
             UIBlockingProgressHUD.dismiss()
         }
-
     }
 
     private func fetchOAuthToken(_ code: String) {
@@ -104,8 +104,8 @@ extension SplashViewController: AuthViewControllerDelegate {
                 self.tokenStorage.token = token
                 self.fetchProfile(token)
             case .failure:
-                UIBlockingProgressHUD.dismiss()
                 showAlertNetworkError()
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }
@@ -119,9 +119,10 @@ extension SplashViewController: AuthViewControllerDelegate {
                 if let profile = profileService.profile {
                     fetchProfileImageURL(for: profile.username)
                 }
-            case .failure:
                 UIBlockingProgressHUD.dismiss()
+            case .failure:
                 showAlertNetworkError()
+                UIBlockingProgressHUD.dismiss()
             }
         }
     }
@@ -145,8 +146,8 @@ extension SplashViewController: AuthViewControllerDelegate {
                 }
             case .failure:
                 DispatchQueue.main.async {
-                    UIBlockingProgressHUD.dismiss()
                     self.showAlertNetworkError()
+                    UIBlockingProgressHUD.dismiss()
                 }
 
             }

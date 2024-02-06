@@ -46,11 +46,10 @@ final class ImagesListViewController: UIViewController {
         if segue.identifier == showSingleImageSegueIdentifier {
             if let viewController = segue.destination as? SingleImageViewController,
                let indexPath = sender as? IndexPath {
-                // mistake that largeImageURL is not in a cache !!!! so I need to download it
-                // поменять заклушку
-                if let image = getCachedImage(by: photos[indexPath.row].largeImageURL) {
-                    viewController.image = image
+                guard let url = URL(string: photos[indexPath.row].largeImageURL) else {
+                    return
                 }
+                viewController.imageURL = url
             }
         } else {
             super.prepare(for: segue, sender: sender)
@@ -140,7 +139,6 @@ extension ImagesListViewController : UITableViewDataSource {
         KingfisherManager.shared.retrieveImage(with: imageURL) { result in
             switch result {
             case .success(let value):
-                // print("Image: \(value.image). Got from: \(value.cacheType)")
                 image = value.image
             case .failure(let error):
                 print("Error: \(error)")

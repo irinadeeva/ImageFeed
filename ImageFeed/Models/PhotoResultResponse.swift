@@ -9,9 +9,9 @@ import Foundation
 
 struct PhotoResultResponse: Decodable {
     let id: String
-    let width: Int // i dont know if it is okey to say it a double
-    let height: Int // i dont know if it is okey to say it a double
-    let createdAtString: String? // i dont know if it is okey to say it a string
+    let width: Int
+    let height: Int
+    let createdAtString: String?
     let welcomeDescription: String?
     let urls: UrlsResultResponse
     let isLiked: Bool

@@ -13,6 +13,7 @@ final class ImagesListViewController: UIViewController {
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos: [Photo] = []
     private var imageListServiceObserver: NSObjectProtocol?
+    private var alertPresenter: AlertProtocol?
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -24,6 +25,7 @@ final class ImagesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertPresenter = AlertPresenter(viewController: self)
 
         tableView.dataSource = self
         tableView.delegate = self
@@ -71,24 +73,20 @@ final class ImagesListViewController: UIViewController {
     private func configCell(for cell: ImageListCell, with indexPath: IndexPath) {
         let photo = photos[indexPath.row]
 
-        guard let imageURL = URL(string: photo.thumbImageURL) else {
-            return
-        }
+        guard let imageURL = URL(string: photo.thumbImageURL) else { return }
 
         _ = RoundCornerImageProcessor(cornerRadius: 16)
         let placeholder = UIImage(named: "Photo Stub")
 
-        cell.imageCell.kf.setImage(
-            with: imageURL,
-            placeholder: placeholder,
-            options: [.cacheMemoryOnly]
-        ) { [weak self] result in
+        cell.imageCell.kf.setImage(with: imageURL,
+                                   placeholder: placeholder,
+                                   options: [.cacheMemoryOnly]) { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(_):
+            case .success:
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
-            case .failure(let error):
-                print(error)
+            case .failure:
+                self.showAlertNetworkError()
             }
 
         }
@@ -133,16 +131,30 @@ extension ImagesListViewController : UITableViewDataSource {
             return nil
         }
 
-        KingfisherManager.shared.retrieveImage(with: imageURL) { result in
+        KingfisherManager.shared.retrieveImage(with: imageURL) { [weak self] result in
             switch result {
             case .success(let value):
                 image = value.image
-            case .failure(let error):
-                print("Error: \(error)")
+            case .failure:
+                self?.showAlertNetworkError()
             }
         }
 
         return image
+    }
+
+    private func showAlertNetworkError() {
+        let alert = AlertModel(
+            title: "Что-то пошло не так(",
+            message: "Не удалось войти в систему",
+            buttonTexts: ["OK"]
+        ) { [weak self] index in
+            guard let self else {return}
+
+            imagesListService.fetchPhotosNextPage()
+        }
+
+        alertPresenter?.show(alertModel: alert)
     }
 }
 
@@ -187,7 +199,7 @@ extension ImagesListViewController: ImageListCellDelegate {
                 UIBlockingProgressHUD.dismiss()
             case .failure:
                 UIBlockingProgressHUD.dismiss()
-                // TODO: Показать ошибку с использованием UIAlertController
+                self.showAlertNetworkError()
             }
 
         }

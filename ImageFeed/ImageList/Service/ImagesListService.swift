@@ -50,7 +50,6 @@ final class ImagesListService {
                         userInfo: ["Photos" : photos])
 
                 case .failure(let error):
-                    // TODO: something different
                     print("\(error)")
                 }
                 self.task = nil

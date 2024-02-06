@@ -119,7 +119,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                 if let profile = profileService.profile {
                     fetchProfileImageURL(for: profile.username)
                 }
-            case .failure(_):
+            case .failure:
                 UIBlockingProgressHUD.dismiss()
                 showAlertNetworkError()
             }
@@ -143,8 +143,7 @@ extension SplashViewController: AuthViewControllerDelegate {
                     self.switchToTabBarController()
                     UIBlockingProgressHUD.dismiss()
                 }
-            case .failure(_):
-
+            case .failure:
                 DispatchQueue.main.async {
                     UIBlockingProgressHUD.dismiss()
                     self.showAlertNetworkError()

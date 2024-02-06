@@ -1,9 +1,9 @@
-////
-////  File.swift
-////  ImageFeed
-////
-////  Created by Irina Deeva on 29/12/23.
-////
+//
+//  File.swift
+//  ImageFeed
+//
+//  Created by Irina Deeva on 29/12/23.
+//
 
 import UIKit
 import Kingfisher
@@ -161,11 +161,8 @@ import WebKit
 
 extension ProfileViewController {
     private func clean() {
-        // Очищаем все куки из хранилища.
         HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        // Запрашиваем все данные из локального хранилища.
         WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            // Массив полученных записей удаляем из хранилища.
             records.forEach { record in
                 WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
             }

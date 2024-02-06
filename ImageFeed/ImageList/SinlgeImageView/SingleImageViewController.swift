@@ -22,6 +22,10 @@ final class SingleImageViewController: UIViewController {
 
         alertPresenter = AlertPresenter(viewController: self)
 
+        imageView.image = UIImage(named: "Full photo Stub")
+        if let image = imageView.image {
+            rescaleAndCenterImageInScrollView(image: image)
+        }
         setSingleImage()
     }
 
@@ -70,7 +74,6 @@ final class SingleImageViewController: UIViewController {
             case .success(let imageResult):
                 self.rescaleAndCenterImageInScrollView(image: imageResult.image)
             case .failure:
-                print("error")
                 self.showAlertNetworkError()
             }
         }

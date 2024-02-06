@@ -47,7 +47,7 @@ final class ImagesListService {
                     NotificationCenter.default.post(
                         name: ImagesListService.didChangeNotification,
                         object: self,
-                        userInfo: ["Photos" : photos]) // non lo so che e vero
+                        userInfo: ["Photos" : photos])
 
                 case .failure(let error):
                     // TODO: something different

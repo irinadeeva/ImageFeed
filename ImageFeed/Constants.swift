@@ -14,4 +14,5 @@ struct Constants {
     static let unsplashDefaultBaseURL = "https://api.unsplash.com/"
     static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
     static let unsplashTokenURLString = "https://unsplash.com/oauth/token"
+    static let tokenKeychainWrapperKey = "Auth token"
 }

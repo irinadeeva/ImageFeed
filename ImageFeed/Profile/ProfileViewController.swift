@@ -16,10 +16,13 @@ final class ProfileViewController: UIViewController {
     private var logoutButton: UIButton!
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    private var alertPresenter: AlertProtocol?
+    private let tokenStorage = OAuth2TokenStorage.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ypBlack
+        alertPresenter = AlertPresenter(viewController: self)
 
         setupProfileImage()
         setupUserNameLabel()
@@ -133,5 +136,39 @@ final class ProfileViewController: UIViewController {
 
     @objc
     private func tapLogoutButton() {
+        let alert = AlertModel(
+            title: "Пока, пока!",
+            message: "Уверены, что хотите выйти?",
+            buttonTexts: ["Да", "Нет"]
+        ) { [weak self] index in
+            guard let self else {return}
+
+            if index == 0 {
+                clean()
+                tokenStorage.clearToken()
+                UIApplication.shared.windows.first?.rootViewController = SplashViewController()
+                UIApplication.shared.windows.first?.makeKeyAndVisible()
+            } else {
+                dismiss(animated: true)
+            }
+        }
+
+        alertPresenter?.show(alertModel: alert)
+    }
+}
+
+import WebKit
+
+extension ProfileViewController {
+    private func clean() {
+        // Очищаем все куки из хранилища.
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        // Запрашиваем все данные из локального хранилища.
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            // Массив полученных записей удаляем из хранилища.
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
     }
 }

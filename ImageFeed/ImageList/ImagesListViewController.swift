@@ -46,10 +46,7 @@ final class ImagesListViewController: UIViewController {
         if segue.identifier == showSingleImageSegueIdentifier {
             if let viewController = segue.destination as? SingleImageViewController,
                let indexPath = sender as? IndexPath {
-                guard let url = URL(string: photos[indexPath.row].largeImageURL) else {
-                    return
-                }
-                viewController.imageURL = url
+                viewController.imageURL = URL(string: photos[indexPath.row].largeImageURL)
             }
         } else {
             super.prepare(for: segue, sender: sender)

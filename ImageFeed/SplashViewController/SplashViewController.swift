@@ -60,8 +60,8 @@ final class SplashViewController: UIViewController {
         let alert = AlertModel(
             title: "Что-то пошло не так(",
             message: "Не удалось войти в систему",
-            buttonText: "OK"
-        ) { [weak self] in
+            buttonTexts: ["OK"]
+        ) { [weak self] index in
             guard let self else {return}
 
             if  let token = tokenStorage.token {

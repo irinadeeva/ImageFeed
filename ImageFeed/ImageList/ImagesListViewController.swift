@@ -14,6 +14,7 @@ final class ImagesListViewController: UIViewController {
     private var photos: [Photo] = []
     private var imageListServiceObserver: NSObjectProtocol?
     private var alertPresenter: AlertProtocol?
+
     private lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .long
@@ -91,7 +92,11 @@ final class ImagesListViewController: UIViewController {
 
         }
 
-        cell.dataLabel.text =  dateFormatter.string(from: photo.createdAt ?? Date())
+        if let createdAt = photo.createdAt {
+            cell.dataLabel.text = dateFormatter.string(from: createdAt)
+        } else {
+            cell.dataLabel.text = ""
+        }
 
         cell.setIsLiked(isLiked: photo.isLiked)
     }

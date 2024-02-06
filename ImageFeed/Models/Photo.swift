@@ -19,7 +19,13 @@ struct Photo {
     init(from photo: PhotoResultResponse) {
         self.id = photo.id
         self.size = CGSize(width: photo.width, height: photo.height)
-        self.createdAt = photo.createdAtString?.changeToDate
+
+        if let createdAtString = photo.createdAtString {
+            createdAt = Self.dateFormatterISO8601.date(from: createdAtString)
+        } else {
+            createdAt = nil
+        }
+
         self.welcomeDescription = photo.welcomeDescription
         self.thumbImageURL = photo.urls.thumb.absoluteString
         self.largeImageURL = photo.urls.full.absoluteString
@@ -35,4 +41,8 @@ struct Photo {
         self.largeImageURL = largeImageURL
         self.isLiked = isLiked
     }
+}
+
+extension Photo {
+    private static let dateFormatterISO8601 = ISO8601DateFormatter()
 }

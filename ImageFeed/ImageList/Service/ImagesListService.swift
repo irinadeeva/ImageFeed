@@ -49,7 +49,7 @@ final class ImagesListService {
                     object: self,
                     userInfo: ["Photos" : photos]) // non lo so che e vero
 
-                print(self.photos)
+                //                print(self.photos)
             case .failure(let error):
                 // TODO: something different
                 print("\(error)")
@@ -63,6 +63,51 @@ final class ImagesListService {
         self.task = task
         task.resume()
     }
+
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+//        let newPhoto: LikeResultResponse?
+
+        if isLike {
+            addToFavorite(for: photoId)
+        } else {
+            deleteFromFavorite(for: photoId)
+        }
+
+//        guard let newPhoto else { return }
+//
+//        if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+//            var photo = self.photos[index]
+//
+//            let newPhoto = photo.toggleLike()
+//
+//            self.photos[index] = newPhoto
+//        }
+
+    }
+
+    private func addToFavorite(for photoId: String) {
+        guard let request = updateLikeRequest(for: photoId) else { return }
+
+        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<LikeResultResponse, Error>) in DispatchQueue.main.async {
+            guard let self else { return }
+
+            switch result {
+            case .success(let photoResponse):
+                print("addToFavorite photoResponse \(photoResponse)")
+
+            case .failure(let error):
+                // TODO: something different
+                print("addToFavorite error \(error)")
+            }
+        }
+        }
+
+        task.resume()
+    }
+
+    private func deleteFromFavorite(for photoId: String) {
+//        return nil
+    }
 }
 
 extension ImagesListService {
@@ -72,6 +117,13 @@ extension ImagesListService {
             queryItems: [
                 URLQueryItem(name: "page", value: String(page))
             ]
+        )
+    }
+
+    func updateLikeRequest(for id: String) -> URLRequest? {
+        return URLRequest.buildRequest(
+            method: "POST",
+            path: Constants.unsplashDefaultBaseURL + "photos/\(id)/like"
         )
     }
 }

@@ -46,6 +46,8 @@ final class ImagesListViewController: UIViewController {
             if segue.identifier == showSingleImageSegueIdentifier {
                 if let viewController = segue.destination as? SingleImageViewController,
                    let indexPath = sender as? IndexPath {
+                    // mistake that largeImageURL is not in a cache !!!! so I need to download it
+                    // поменять заклушку 
                     if let image = getCachedImage(by: photos[indexPath.row].largeImageURL) {
                         viewController.image = image
                     }
@@ -77,7 +79,7 @@ final class ImagesListViewController: UIViewController {
             return
         }
 
-        let processor = RoundCornerImageProcessor(cornerRadius: 16)
+        _ = RoundCornerImageProcessor(cornerRadius: 16)
         let placeholder = UIImage(named: "Photo Stub")
 
         cell.imageCell.kf.setImage(
@@ -87,7 +89,7 @@ final class ImagesListViewController: UIViewController {
         ) { [weak self] result in
             guard let self else { return }
             switch result {
-            case .success(let data):
+            case .success(_):
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
             case .failure(let error):
                 print(error)
@@ -111,6 +113,8 @@ extension ImagesListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == photos.count {
             imagesListService.fetchPhotosNextPage()
+//            //debug
+//            imagesListService.changeLike(photoId: photos[0].id, isLike: true) {_ in
         }
     }
 
@@ -122,6 +126,11 @@ extension ImagesListViewController : UITableViewDataSource {
         }
 
         configCell(for: imageListCell, with: indexPath)
+
+        if indexPath.row == 0 {
+            imagesListService.changeLike(photoId: photos[indexPath.row].id, isLike: true) {_ in
+            }
+        }
         return imageListCell
     }
 
@@ -137,7 +146,7 @@ extension ImagesListViewController : UITableViewDataSource {
         KingfisherManager.shared.retrieveImage(with: imageURL) { result in
             switch result {
                 case .success(let value):
-                    print("Image: \(value.image). Got from: \(value.cacheType)")
+//                    print("Image: \(value.image). Got from: \(value.cacheType)")
                     image = value.image
                 case .failure(let error):
                     print("Error: \(error)")

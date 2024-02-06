@@ -19,4 +19,6 @@ final class ImageListCell: UITableViewCell {
 
         imageCell.kf.cancelDownloadTask()
     }
+
+    
 }

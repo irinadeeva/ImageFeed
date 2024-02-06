@@ -163,5 +163,68 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "20E16E3D-011F-487F-85F2-F4B34C44624D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ImageFeed/ImageList/Service/ImagesListService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "addToFavorite(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "20E16E3D-011F-487F-85F2-F4B34C44624D - 6dd01b8c3cc054ee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ImageFeed.ImagesListService.addToFavorite(for: Swift.String) -&gt; ()"
+                  moduleName = "ImageFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/irinadeeva/Documents/YandexPraktikum/ImageFeed/ImageFeed/ImageList/Service/ImagesListService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "676">
+               </Location>
+               <Location
+                  uuid = "20E16E3D-011F-487F-85F2-F4B34C44624D - 46890ba9af938a04"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;ImageFeed.PhotoResultResponse, Swift.Error&gt;) -&gt; () in ImageFeed.ImagesListService.addToFavorite(for: Swift.String) -&gt; ()"
+                  moduleName = "ImageFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/irinadeeva/Documents/YandexPraktikum/ImageFeed/ImageFeed/ImageList/Service/ImagesListService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "220">
+               </Location>
+               <Location
+                  uuid = "20E16E3D-011F-487F-85F2-F4B34C44624D - 831d42a776dd0688"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Result&lt;ImageFeed.PhotoResultResponse, Swift.Error&gt;) -&gt; () in ImageFeed.ImagesListService.addToFavorite(for: Swift.String) -&gt; ()"
+                  moduleName = "ImageFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/irinadeeva/Documents/YandexPraktikum/ImageFeed/ImageFeed/ImageList/Service/ImagesListService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "79"
+                  endingLineNumber = "79"
+                  offsetFromSymbolStart = "180">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

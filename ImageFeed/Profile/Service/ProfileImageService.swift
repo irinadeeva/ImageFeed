@@ -44,7 +44,7 @@ final class ProfileImageService {
 extension ProfileImageService {
     func profileImageRequest(for username: String) -> URLRequest? {
             return URLRequest.buildRequest(
-                path: Constants.unsplashDefaultBaseURL + "users/\(username)")
+                path: AuthConfiguration.standard.unsplashDefaultBaseURL + "users/\(username)")
 
     }
 }

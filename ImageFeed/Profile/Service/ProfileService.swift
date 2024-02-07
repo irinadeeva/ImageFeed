@@ -42,6 +42,6 @@ final class ProfileService {
 extension ProfileService {
     func profileRequest() -> URLRequest? {
         return URLRequest.buildRequest(
-            path: Constants.unsplashDefaultBaseURL + "me")
+            path: AuthConfiguration.standard.unsplashDefaultBaseURL + "me")
     }
 }

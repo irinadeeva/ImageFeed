@@ -45,11 +45,11 @@ extension OAuth2Service {
     func authTokenRequest(with code: String) -> URLRequest? {
         return URLRequest.buildRequest(
             method: "POST",
-            path: Constants.unsplashTokenURLString,
+            path: AuthConfiguration.standard.unsplashTokenURLString,
             queryItems: [
-                URLQueryItem(name: "client_id", value: Constants.accessKey),
-                URLQueryItem(name: "client_secret", value: Constants.secretKey),
-                URLQueryItem(name: "redirect_uri", value: Constants.redirectUR),
+                URLQueryItem(name: "client_id", value: AuthConfiguration.standard.accessKey),
+                URLQueryItem(name: "client_secret", value: AuthConfiguration.standard.secretKey),
+                URLQueryItem(name: "redirect_uri", value: AuthConfiguration.standard.redirectUR),
                 URLQueryItem(name: "code", value: code),
                 URLQueryItem(name: "grant_type", value: "authorization_code")
             ])

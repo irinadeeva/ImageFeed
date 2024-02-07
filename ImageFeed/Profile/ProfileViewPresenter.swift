@@ -5,8 +5,7 @@
 //  Created by Irina Deeva on 07/02/24.
 //
 
-import Foundation
-
+import UIKit
 
 protocol ProfileViewPresenterProtocol: AnyObject {
     var view: ProfileViewControllerProtocol? { get set }
@@ -16,10 +15,15 @@ protocol ProfileViewPresenterProtocol: AnyObject {
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     var view: ProfileViewControllerProtocol?
+    var cookiesCleaner: CookiesCleanerProtocol
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
     private let tokenStorage = OAuth2TokenStorage.shared
+
+    init(cookiesCleaner: CookiesCleanerProtocol) {
+        self.cookiesCleaner = cookiesCleaner
+    }
 
     func viewDidLoad() {
         if let profile = profileService.profile {
@@ -48,22 +52,22 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     }
 
     func logOut() {
-        clean()
+        cookiesCleaner.clean()
         tokenStorage.clearToken()
         UIApplication.shared.windows.first?.rootViewController = SplashViewController()
         UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
 }
 
-import WebKit
-
-extension ProfileViewPresenter {
-    private func clean() {
-        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-            }
-        }
-    }
-}
+//import WebKit
+//
+//extension ProfileViewPresenter {
+//    private func clean() {
+//        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+//        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+//            records.forEach { record in
+//                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+//            }
+//        }
+//    }
+//}

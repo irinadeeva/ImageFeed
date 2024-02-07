@@ -17,7 +17,8 @@ final class TabBarController: UITabBarController {
             withIdentifier: "ImagesListViewController"
         )
 
-        let profileViewPresenter = ProfileViewPresenter()
+        let cookiesCleaner = CookiesCleaner()
+        let profileViewPresenter = ProfileViewPresenter(cookiesCleaner: cookiesCleaner)
         let profileViewController = ProfileViewController()
         profileViewPresenter.view = profileViewController
         profileViewController.presenter = profileViewPresenter

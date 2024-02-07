@@ -36,7 +36,7 @@ final class ProfileImageService {
     }
 
     func updateImageProfile(with imageURL: String) {
-        self.avatarURL = imageURL
+        avatarURL = imageURL
     }
 
 }

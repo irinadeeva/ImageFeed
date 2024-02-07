@@ -29,7 +29,6 @@ extension URLSession {
 
                 do {
                     let decodedData = try JSONDecoder().decode(T.self, from: data)
-
                     completion(.success(decodedData))
                 } catch {
                     completion(.failure(NetworkError.invalidResponse))

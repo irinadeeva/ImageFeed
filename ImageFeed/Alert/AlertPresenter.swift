@@ -21,11 +21,13 @@ extension AlertPresenter: AlertProtocol {
             message: alertModel.message,
             preferredStyle: .alert)
 
-        let action = UIAlertAction(title: alertModel.buttonText, style: .default) { _ in
-            alertModel.completion()
+        for (index, buttonText) in alertModel.buttonTexts.enumerated() {
+            let action = UIAlertAction(title: buttonText, style: .default) { _ in
+                alertModel.completion(index)
+            }
+            alert.addAction(action)
         }
 
-        alert.addAction(action)
         viewController?.present(alert, animated: true)
     }
 }

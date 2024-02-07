@@ -1,9 +1,9 @@
-////
-////  File.swift
-////  ImageFeed
-////
-////  Created by Irina Deeva on 29/12/23.
-////
+//
+//  File.swift
+//  ImageFeed
+//
+//  Created by Irina Deeva on 29/12/23.
+//
 
 import UIKit
 import Kingfisher
@@ -16,11 +16,14 @@ final class ProfileViewController: UIViewController {
     private var logoutButton: UIButton!
     private let profileService = ProfileService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
+    private var alertPresenter: AlertProtocol?
+    private let tokenStorage = OAuth2TokenStorage.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .ypBlack
-        
+        alertPresenter = AlertPresenter(viewController: self)
+
         setupProfileImage()
         setupUserNameLabel()
         setupUserNicknameLabel()
@@ -38,9 +41,10 @@ final class ProfileViewController: UIViewController {
                 object: nil,
                 queue: .main
             ) { [weak self] _ in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.updateAvatar()
             }
+
         updateAvatar()
     }
 
@@ -51,7 +55,7 @@ final class ProfileViewController: UIViewController {
         else { return }
 
         let processor = RoundCornerImageProcessor(cornerRadius: 61)
-        let placeholder = UIImage(named: "YP Stub")
+        let placeholder = UIImage(named: "Profile Stub")
 
         profileImage.kf.indicatorType = .activity
 
@@ -60,7 +64,7 @@ final class ProfileViewController: UIViewController {
             placeholder: placeholder,
             options: [.processor(processor),
                       .cacheMemoryOnly
-                     ]
+            ]
         )
     }
 
@@ -132,5 +136,36 @@ final class ProfileViewController: UIViewController {
 
     @objc
     private func tapLogoutButton() {
+        let alert = AlertModel(
+            title: "Пока, пока!",
+            message: "Уверены, что хотите выйти?",
+            buttonTexts: ["Да", "Нет"]
+        ) { [weak self] index in
+            guard let self else {return}
+
+            if index == 0 {
+                clean()
+                tokenStorage.clearToken()
+                UIApplication.shared.windows.first?.rootViewController = SplashViewController()
+                UIApplication.shared.windows.first?.makeKeyAndVisible()
+            } else {
+                dismiss(animated: true)
+            }
+        }
+
+        alertPresenter?.show(alertModel: alert)
+    }
+}
+
+import WebKit
+
+extension ProfileViewController {
+    private func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+            records.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
     }
 }

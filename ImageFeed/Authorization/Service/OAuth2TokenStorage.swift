@@ -13,14 +13,18 @@ class OAuth2TokenStorage {
     
     var token: String? {
         get {
-            return KeychainWrapper.standard.string(forKey: "Auth token")
+            return KeychainWrapper.standard.string(forKey: Constants.tokenKeychainWrapperKey)
         }
         set {
             guard let newValue else { return }
-            let isSuccess = KeychainWrapper.standard.set(newValue, forKey: "Auth token")
+            let isSuccess = KeychainWrapper.standard.set(newValue, forKey: Constants.tokenKeychainWrapperKey)
             guard isSuccess else { return }
         }
     }
     
     private init() { }
+
+    func clearToken() {
+        KeychainWrapper.standard.removeObject(forKey: Constants.tokenKeychainWrapperKey)
+    }
 }

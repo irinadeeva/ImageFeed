@@ -8,32 +8,33 @@
 import UIKit
 
 final class SingleImageViewController: UIViewController {
-    var image: UIImage! {
-        didSet {
-            guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
-        }
-    }
+    var imageURL: URL?
 
     @IBOutlet private var backButton: UIButton!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var scrollView: UIScrollView!
+    private var alertPresenter: AlertProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.minimumZoomScale = 0.1
         scrollView.maximumZoomScale = 1.25
-        imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+
+        alertPresenter = AlertPresenter(viewController: self)
+
+        imageView.image = UIImage(named: "Full photo Stub")
+        if let image = imageView.image {
+            rescaleAndCenterImageInScrollView(image: image)
+        }
+        setSingleImage()
     }
 
     @IBAction func didTapBackButton() {
         dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func didTapShareButton(_ sender: UIButton) {
-        guard let imageToShare = image else {
+        guard let imageToShare = imageView.image else {
             return
         }
 
@@ -43,7 +44,7 @@ final class SingleImageViewController: UIViewController {
         )
         present(activityViewController, animated: true, completion: nil)
     }
-    
+
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
         let minZoomScale = scrollView.minimumZoomScale
         let maxZoomScale = scrollView.maximumZoomScale
@@ -59,6 +60,41 @@ final class SingleImageViewController: UIViewController {
         let x = (newContentSize.width - visibleRectSize.width) / 2
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+    }
+
+    private func setSingleImage() {
+        guard let imageURL else { return }
+
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: imageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+
+            guard let self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                self.showAlertNetworkError()
+            }
+        }
+    }
+
+    private func showAlertNetworkError() {
+        let alert = AlertModel(
+            title: "Что-то пошло не так(",
+            message: "Попробовать ещё раз?",
+            buttonTexts: ["Повторить", "Не надо"]
+        ) { [weak self] index in
+            guard let self else {return}
+
+            if index == 0 {
+                setSingleImage()
+            } else {
+                dismiss(animated: true)
+            }
+        }
+
+        alertPresenter?.show(alertModel: alert)
     }
 }
 

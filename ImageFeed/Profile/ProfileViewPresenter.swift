@@ -48,7 +48,6 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
            let url = URL(string: profileImageURL) {
             view?.updateAvatar(with: url)
         }
-
     }
 
     func logOut() {
@@ -58,16 +57,3 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
         UIApplication.shared.windows.first?.makeKeyAndVisible()
     }
 }
-
-//import WebKit
-//
-//extension ProfileViewPresenter {
-//    private func clean() {
-//        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-//        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-//            records.forEach { record in
-//                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-//            }
-//        }
-//    }
-//}

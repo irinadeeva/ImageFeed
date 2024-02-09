@@ -19,6 +19,7 @@
 		BE3CB0A12B742C3D002A8245 /* CookiesCleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3CB0A02B742C3D002A8245 /* CookiesCleaner.swift */; };
 		BE3CB0B62B74D288002A8245 /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3CB0B52B74D288002A8245 /* WebViewTests.swift */; };
 		BE3CB0BE2B751E4F002A8245 /* ProfileViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3CB0BD2B751E4F002A8245 /* ProfileViewTests.swift */; };
+		BE3CB0C02B7533CC002A8245 /* ImagesListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3CB0BF2B7533CC002A8245 /* ImagesListPresenter.swift */; };
 		BE5A40D22B3E849B00AC88CD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5A40D12B3E849B00AC88CD /* ProfileViewController.swift */; };
 		BE9DF8B72B72461F007B6C5B /* LikeResultResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9DF8B62B72461F007B6C5B /* LikeResultResponse.swift */; };
 		BEC284B92B29D0340096D5CE /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC284B82B29D0340096D5CE /* ImageListCell.swift */; };
@@ -77,6 +78,7 @@
 		BE3CB0B52B74D288002A8245 /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		BE3CB0BC2B74D511002A8245 /* ImageFeed.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ImageFeed.xctestplan; sourceTree = "<group>"; };
 		BE3CB0BD2B751E4F002A8245 /* ProfileViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTests.swift; sourceTree = "<group>"; };
+		BE3CB0BF2B7533CC002A8245 /* ImagesListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenter.swift; sourceTree = "<group>"; };
 		BE5A40D12B3E849B00AC88CD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		BE9DF8B62B72461F007B6C5B /* LikeResultResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeResultResponse.swift; sourceTree = "<group>"; };
 		BEC284B82B29D0340096D5CE /* ImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				BE3638342B590B3F00A202D1 /* SinlgeImageView */,
 				BEC284B82B29D0340096D5CE /* ImageListCell.swift */,
 				BEF298732B18FDC000CDB13D /* ImagesListViewController.swift */,
+				BE3CB0BF2B7533CC002A8245 /* ImagesListPresenter.swift */,
 			);
 			path = ImageList;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				BE324FFE2B6A710E007D46F7 /* UIBlockingProgressHUD.swift in Sources */,
 				BEE8786C2B6C134B00B1DDDE /* AlertPresenter.swift in Sources */,
 				BEE878762B6F7B2300B1DDDE /* ProfileResultResponse.swift in Sources */,
+				BE3CB0C02B7533CC002A8245 /* ImagesListPresenter.swift in Sources */,
 				BEE8787F2B70328000B1DDDE /* PhotoResultResponse.swift in Sources */,
 				BEF298742B18FDC000CDB13D /* ImagesListViewController.swift in Sources */,
 				BEC284B92B29D0340096D5CE /* ImageListCell.swift in Sources */,

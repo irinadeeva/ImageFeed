@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import Kingfisher
 
-final class ImagesListViewController: UIViewController {
-    private let imagesListService = ImagesListService.shared
+final class ImagesListViewController: UIViewController{
+    private var presenter: ImagesListPresenterProtocol!
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos: [Photo] = []
     private var imageListServiceObserver: NSObjectProtocol?
@@ -26,13 +25,13 @@ final class ImagesListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        alertPresenter = AlertPresenter(viewController: self)
+        configure()
 
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
 
-        imagesListService.fetchPhotosNextPage()
+        presenter.fetchPhotosNextPage()
 
         imageListServiceObserver = NotificationCenter.default
             .addObserver(
@@ -56,12 +55,17 @@ final class ImagesListViewController: UIViewController {
         }
     }
 
+    private func configure() {
+        alertPresenter = AlertPresenter(viewController: self)
+        presenter = ImagesListPresenter()
+    }
+
     private func updateTableViewAnimated() {
         let oldCount = photos.count
-        let newCount = imagesListService.photos.count
+        let newCount = presenter.getPhotosNumber()
 
         if oldCount != newCount {
-            photos = imagesListService.photos
+            photos = presenter.getPhotos()
             tableView.performBatchUpdates {
                 let indexPaths = (oldCount..<newCount).map { i in
                     IndexPath(row: i, section: 0)
@@ -76,7 +80,6 @@ final class ImagesListViewController: UIViewController {
 
         guard let imageURL = URL(string: photo.thumbImageURL) else { return }
 
-        _ = RoundCornerImageProcessor(cornerRadius: 16)
         let placeholder = UIImage(named: "Photo Stub")
 
         cell.imageCell.kf.setImage(with: imageURL,
@@ -110,7 +113,8 @@ extension ImagesListViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row + 1 == photos.count {
             DispatchQueue.global().async { [weak self] in
-                self?.imagesListService.fetchPhotosNextPage() 
+                guard let self else { return }
+                self.presenter.fetchPhotosNextPage()
             }
         }
 
@@ -131,15 +135,9 @@ extension ImagesListViewController : UITableViewDataSource {
     }
 
     private func getCachedImage(by url: String) -> UIImage? {
-        guard let imageURL = URL(string: url) else {
-            return nil
-        }
+        var image = UIImage(named: "Photo Stub")
 
-        guard var image = UIImage(named: "Photo Stub") else {
-            return nil
-        }
-
-        KingfisherManager.shared.retrieveImage(with: imageURL) { [weak self] result in
+        presenter.getCachedImage(by: url) { [weak self] result in
             switch result {
             case .success(let value):
                 image = value.image
@@ -151,16 +149,8 @@ extension ImagesListViewController : UITableViewDataSource {
         return image
     }
 
-    private func showAlertNetworkError() {
-        let alert = AlertModel(
-            title: "Что-то пошло не так(",
-            message: "Не удалось войти в систему",
-            buttonTexts: ["OK"]
-        ) { [weak self] index in
-            guard let self else {return}
-
-            imagesListService.fetchPhotosNextPage()
-        }
+    func showAlertNetworkError() {
+        let alert = presenter.getAlertModel()
 
         alertPresenter?.show(alertModel: alert)
     }
@@ -199,11 +189,11 @@ extension ImagesListViewController: ImageListCellDelegate {
         let photo = self.photos[indexPath.row]
 
         UIBlockingProgressHUD.show()
-        imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
+        presenter.changeLike(photo: photo) { [weak self] result in
             guard let self else { return }
             switch result {
             case .success:
-                self.photos = self.imagesListService.photos
+                self.photos = self.presenter.getPhotos()
                 cell.setIsLiked(isLiked: self.photos[indexPath.row].isLiked)
                 UIBlockingProgressHUD.dismiss()
             case .failure:

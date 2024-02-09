@@ -16,7 +16,7 @@ public protocol WebViewPresenterProtocol: AnyObject {
 }
 
 final class WebViewPresenter: WebViewPresenterProtocol {
-    var view: WebViewViewControllerProtocol?
+    weak var view: WebViewViewControllerProtocol?
     var authHelper: AuthHelperProtocol
 
     init(authHelper: AuthHelperProtocol) {

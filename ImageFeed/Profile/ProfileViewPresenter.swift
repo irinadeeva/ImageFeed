@@ -14,7 +14,7 @@ protocol ProfileViewPresenterProtocol: AnyObject {
 }
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
-    var view: ProfileViewControllerProtocol?
+    weak var view: ProfileViewControllerProtocol?
     var cookiesCleaner: CookiesCleanerProtocol
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileService = ProfileService.shared

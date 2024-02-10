@@ -21,6 +21,8 @@ extension AlertPresenter: AlertProtocol {
             message: alertModel.message,
             preferredStyle: .alert)
 
+        alert.view.accessibilityIdentifier = "Alert"
+
         for (index, buttonText) in alertModel.buttonTexts.enumerated() {
             let action = UIAlertAction(title: buttonText, style: .default) { _ in
                 alertModel.completion(index)

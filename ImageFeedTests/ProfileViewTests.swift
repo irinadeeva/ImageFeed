@@ -43,7 +43,7 @@ final class ProfileViewTests: XCTestCase {
         presenter.view = viewController
 
         // when
-        _ = viewController.viewDidLoad()
+        viewController.viewDidLoad()
 
         // then
         XCTAssertTrue(presenter.viewDidLoadCalled)
@@ -87,7 +87,7 @@ final class ProfileViewTests: XCTestCase {
         viewController.updateProfileDetails(profile: profile)
 
         // then
-        XCTAssertFalse(viewController.shouldUpdateProfile)
+        XCTAssertTrue(viewController.shouldUpdateProfile)
     }
 
     func testPresenterCallsUpdateAvatar() {

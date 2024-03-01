@@ -1,3 +1,5 @@
+![ImageFeed](./Image%20Feed.png)
+
 # ImageFeed Chronicle: A Quest for Mastery 🚀📱
 
 Once upon a time in the vibrant realm of code and creativity, a curious mind embarked on a quest for mastery. This is the story of the ImageFeed, a creation born not just from necessity but from the thirst for knowledge, innovation, and the sheer joy of bringing imagination to life.

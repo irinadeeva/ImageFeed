@@ -8,16 +8,23 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfileViewPresenterProtocol? { get set }
+    func updateProfileDetails(profile: Profile)
+    func updateAvatar(with url: URL)
+}
+
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
+    var presenter: ProfileViewPresenterProtocol?
+    
     private var profileImage: UIImageView!
     private var userName: UILabel!
     private var userNickname: UILabel!
     private var userDescription: UILabel!
     private var logoutButton: UIButton!
-    private let profileService = ProfileService.shared
-    private var profileImageServiceObserver: NSObjectProtocol?
     private var alertPresenter: AlertProtocol?
-    private let tokenStorage = OAuth2TokenStorage.shared
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,29 +38,20 @@ final class ProfileViewController: UIViewController {
         setupLogoutButton()
         setupConstraints()
 
-        if let profile = profileService.profile {
-            updateProfileDetails(profile: profile)
-        }
-
-        profileImageServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ProfileImageService.didChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                guard let self else { return }
-                self.updateAvatar()
-            }
-
-        updateAvatar()
+        presenter?.viewDidLoad()
     }
 
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
+    // MARK: - ProfileViewControllerProtocol
 
+    func updateProfileDetails(profile: Profile) {
+        userName.text = profile.fullname
+        userNickname.text = profile.loginname
+        if let bio = profile.bio {
+            userDescription.text = bio
+        }
+    }
+
+    func updateAvatar(with url: URL) {
         let processor = RoundCornerImageProcessor(cornerRadius: 61)
         let placeholder = UIImage(named: "Profile Stub")
 
@@ -68,13 +66,7 @@ final class ProfileViewController: UIViewController {
         )
     }
 
-    private func updateProfileDetails(profile: Profile) {
-        userName.text = profile.fullname
-        userNickname.text = profile.loginname
-        if let bio = profile.bio {
-            userDescription.text = bio
-        }
-    }
+    // MARK: - Private
 
     private func setupProfileImage() {
         profileImage = UIImageView()
@@ -114,6 +106,7 @@ final class ProfileViewController: UIViewController {
         )
         logoutButton.tintColor = .ypRed
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.accessibilityIdentifier = "logout"
         view.addSubview(logoutButton)
     }
 
@@ -144,10 +137,7 @@ final class ProfileViewController: UIViewController {
             guard let self else {return}
 
             if index == 0 {
-                clean()
-                tokenStorage.clearToken()
-                UIApplication.shared.windows.first?.rootViewController = SplashViewController()
-                UIApplication.shared.windows.first?.makeKeyAndVisible()
+                presenter?.logOut()
             } else {
                 dismiss(animated: true)
             }
@@ -157,15 +147,3 @@ final class ProfileViewController: UIViewController {
     }
 }
 
-import WebKit
-
-extension ProfileViewController {
-    private func clean() {
-        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-            records.forEach { record in
-                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
-            }
-        }
-    }
-}

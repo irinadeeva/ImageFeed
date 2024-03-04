@@ -111,7 +111,7 @@ final class ImagesListService {
 extension ImagesListService {
     func imageListRequest(for page: Int) -> URLRequest? {
         return URLRequest.buildRequest(
-            path: Constants.unsplashDefaultBaseURL + "photos",
+            path: AuthConfiguration.standard.unsplashDefaultBaseURL + "photos",
             queryItems: [
                 URLQueryItem(name: "page", value: String(page))
             ]
@@ -121,7 +121,7 @@ extension ImagesListService {
     func updateLikeRequest(for id: String, method: String) -> URLRequest? {
         return URLRequest.buildRequest(
             method: method,
-            path: Constants.unsplashDefaultBaseURL + "photos/\(id)/like"
+            path: AuthConfiguration.standard.unsplashDefaultBaseURL + "photos/\(id)/like"
         )
     }
 }

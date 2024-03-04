@@ -40,6 +40,7 @@
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAb-LJ-QSw" userLabel="Like Button">
                                                     <rect key="frame" x="370" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="like"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="Active">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -143,7 +144,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P1M-qa-Pn9">
                                 <rect key="frame" x="16" y="760" width="398" height="48"/>
                                 <color key="backgroundColor" name="YP White"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Login"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Authenticate"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="efS-Ku-Yz0"/>
                                 </constraints>
@@ -183,7 +184,7 @@
         <!--Web View View Controller-->
         <scene sceneID="UVR-gN-out">
             <objects>
-                <viewController id="W7T-15-gre" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewViewController" id="W7T-15-gre" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O4C-M8-Mg8">
                         <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -265,6 +266,7 @@
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0b-2J-1uc">
                                 <rect key="frame" x="9" y="9" width="48" height="48"/>
+                                <accessibility key="accessibilityConfiguration" identifier="back"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="Qt1-OT-7fM"/>
                                     <constraint firstAttribute="width" constant="48" id="e9f-P5-mg2"/>
